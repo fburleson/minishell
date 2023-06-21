@@ -6,13 +6,13 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:44:17 by joel              #+#    #+#             */
-/*   Updated: 2023/06/17 18:34:59 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/21 14:25:29 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static unsigned int	get_n_args(char *line)
+static unsigned int	n_args(char *line)
 {
 	unsigned int	n;
 	unsigned int	cidx;
@@ -37,7 +37,7 @@ static unsigned int	get_n_args(char *line)
 	return (n);
 }
 
-static unsigned int	get_arg_len(char *line)
+static unsigned int	arg_len(char *line)
 {
 	unsigned int	cidx;
 
@@ -82,10 +82,10 @@ char	**parse_line(char *line)
 {
 	char			**args;
 	unsigned int	current_arg;
-	unsigned int	arg_len;
+	unsigned int	arg_l;
 	unsigned int	cidx;
 
-	args = (char **)malloc((get_n_args(line) + 1) * sizeof(char *));
+	args = (char **)malloc((n_args(line) + 1) * sizeof(char *));
 	if (!args)
 		return (NULL);
 	cidx = 0;
@@ -94,8 +94,8 @@ char	**parse_line(char *line)
 	{
 		while (line[cidx] && line[cidx] == ' ')
 			cidx++;
-		arg_len = get_arg_len(line + cidx);
-		args[current_arg] = copy_arg(line + cidx, arg_len);
+		arg_l = arg_len(line + cidx);
+		args[current_arg] = copy_arg(line + cidx, arg_l);
 		if (line[cidx] == '\"' || line[cidx] == '\'')
 		{
 			cidx++;

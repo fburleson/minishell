@@ -10,12 +10,14 @@ BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
 
-SRCFILES		=	minishell.c		\
-					parse.c			\
-					expander.c		\
-					env.c			\
-					echo.c			\
-					get_env_var.c	\
+SRCFILES		=	minishell.c	\
+					parse.c		\
+					expander.c	\
+					env.c		\
+					echo.c		\
+					exit.c		\
+					pwd.c		\
+					env_var.c	\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 

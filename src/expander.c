@@ -6,82 +6,64 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/06/20 15:46:59 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/21 16:23:42 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static unsigned int	var_len(char *var)
+static unsigned int	n_args(char	**args)
 {
-	unsigned int	cidx;
+	unsigned int	n;
 
-	cidx = 0;
-	while (var[cidx] && var[cidx] != '=')
-		cidx++;
-	if (var[cidx] == '=')
-		cidx++;
-	return (ft_strlen(var + cidx));
+	n = 0;
+	while (args[n])
+		n++;
+	return (n);
 }
 
-static char	*get_var(char *arg, char **env)
+static char	*get_var_name(char *arg)
 {
+	char			*var_name;
 	unsigned int	cidx;
-	unsigned int	arg_len;
-	t_bool			qouted;
 
-	cidx = 0;
-	qouted = arg[0] == '\"';
-	arg_len = ft_strlen(arg + 1);
-	if (qouted)
-	{
-		arg = arg + 1;
-		arg_len -= 2;
-	}
-	while (env[cidx])
-	{
-		if (!ft_strncmp(arg + 1, env[cidx], arg_len))
-			return (env[cidx]);
-		cidx++;
-	}
-	return (NULL);
-}
-
-static char	*copy_var_value(char *var)
-{
-	char			*copy;
-	unsigned int	cidx;
-	unsigned int	copy_cidx;
-
-	copy = (char *)malloc((var_len(var) + 1) * sizeof(char));
-	if (!copy)
+	var_name = (char *)malloc(ft_strlen(arg) * sizeof(char));
+	if (!var_name)
 		return (NULL);
 	cidx = 0;
-	while (var[cidx] && var[cidx] != '=')
-		cidx++;
-	if (var[cidx] == '=')
-		cidx++;
-	copy_cidx = 0;
-	while (var[cidx])
+	while (arg[cidx] != '\"')
 	{
-		copy[copy_cidx] = var[cidx];
+		var_name[cidx] = arg[cidx];
 		cidx++;
-		copy_cidx++;
 	}
-	copy[copy_cidx] = '\0';
-	return (copy);
+	var_name[cidx] = '\0';
+	return (var_name);
 }
 
-char	*expand(char *arg, char **env)
+char	**expand_args(char **args, char **env)
 {
-	char			*expanded;
-	char			*var;
+	char			**expanded;
+	char			*var_name;
+	unsigned int	cidx;
 
-	var = get_var(arg, env);
-	if (!var)
-		return (NULL);
-	expanded = copy_var_value(var);
+	expanded = (char **)malloc((n_args(args) + 1) * sizeof(char *));
 	if (!expanded)
 		return (NULL);
+	cidx = 0;
+	while (args[cidx])
+	{
+		if (args[cidx][0] == '$')
+			expanded[cidx] = env_var(args[cidx] + 1, env);
+		else if (args[cidx][0] == '\"' && args[cidx][1] == '$')
+		{
+			var_name = get_var_name(args[cidx] + 2);
+			expanded[cidx] = env_var(var_name, env);
+			free(var_name);
+		}
+		else
+			expanded[cidx] = ft_strdup(args[cidx]);
+		cidx++;
+	}
+	expanded[cidx] = NULL;
 	return (expanded);
 }

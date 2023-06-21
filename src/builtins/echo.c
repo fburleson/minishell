@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:42:11 by joel              #+#    #+#             */
-/*   Updated: 2023/06/20 20:22:16 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/21 15:49:04 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ unsigned int	cmd_echo(char **args)
 	t_bool			has_newline;
 
 	cidx = 1;
-	has_newline = ft_strncmp(args[1], "-n", ft_strlen(args[1]));
+	has_newline = TRUE;
+	if (args[1])
+		has_newline = ft_strncmp(args[1], "-n", ft_max(ft_strlen(args[1]), 2));
 	if (!has_newline)
 		cidx = 2;
 	while (args[cidx])
