@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/06/20 20:14:11 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/21 10:29:27 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ char			*expand(char *arg, char **env);
 
 //	BUILTINS
 
-// env.c
-
 unsigned int	cmd_env(char **env);
 unsigned int	cmd_echo(char **args);
+
+//	UTILS
+
+char			*get_env_var(char *var_name, char **env);
 #endif

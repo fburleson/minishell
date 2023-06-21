@@ -5,15 +5,17 @@ RM				=	rm -f
 
 SRCDIR			=	./src/
 BUILTINSDIR		=	$(SRCDIR)builtins/
+UTILSDIR		=	$(SRCDIR)utils/
 BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
 
-SRCFILES		=	minishell.c	\
-					parse.c		\
-					expander.c	\
-					env.c		\
-					echo.c		\
+SRCFILES		=	minishell.c		\
+					parse.c			\
+					expander.c		\
+					env.c			\
+					echo.c			\
+					get_env_var.c	\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 
@@ -32,6 +34,10 @@ $(BINDIR)%.o:	$(SRCDIR)%.c
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
 $(BINDIR)%.o:	$(BUILTINSDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(UTILSDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 

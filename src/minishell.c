@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/06/20 19:55:17 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/21 11:31:11 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char **argv, char **env)
 	char			**args;
 	unsigned int	status;
 
-	printf("%i%s%s\n", argc, argv[0], env[0]);
+	printf("%i%s\n", argc, argv[0]);
 	while (TRUE)
 	{
 		line = readline(SHELL_PROMPT);
@@ -54,6 +54,8 @@ int	main(int argc, char **argv, char **env)
 			printf("%u\n", status);
 		else if (!ft_strncmp(args[0], "echo", ft_strlen(args[0])))
 			status = cmd_echo(args);
+		else
+			printf("command not found:	%s\n", line);
 	}
 	return (SUCCESS);
 }
