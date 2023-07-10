@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/06/27 21:58:37 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/05/19 15:48:47 by joel          #+#    #+#                 */
+/*   Updated: 2023/07/10 18:42:19 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# include <signal.h>
+# include <termios.h> 
 
 # define SUCCESS	0
 # define ERROR		1

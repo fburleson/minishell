@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/05/22 22:24:57 by joel          #+#    #+#                 */
-/*   Updated: 2023/07/10 16:46:45 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/07/10 19:18:07 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@ static t_bool	is_cmd(char *arg, char *cmd)
 	return (!ft_strncmp(arg, cmd, ft_max(ft_strlen(arg), ft_strlen(cmd))));
 }
 
+void	signalhandler(int signum)
+{
+	if (signum == SIGINT)
+		printf(SHELL_PROMPT);
+	if (signum == SIGQUIT)
+	{
+		printf("exit");
+		exit(SUCCESS);
+	}
+}
+
 int	main(int argc, char **argv, char **temp_env)
 {
 	char			*line;
@@ -24,11 +35,18 @@ int	main(int argc, char **argv, char **temp_env)
 	char			**env;
 	unsigned int	status;
 
+	signal(SIGINT, &signalhandler);
+	signal(SIGQUIT, &signalhandler);
 	printf("%i%s\n", argc, argv[0]);
 	env = copy_str_arr(temp_env);
 	while (TRUE)
 	{
 		line = readline(SHELL_PROMPT);
+		if (line == NULL)
+		{
+			printf("exit");
+			exit(SUCCESS);
+		}
 		if (ft_isempty(line))
 			continue ;
 		add_history(line);
