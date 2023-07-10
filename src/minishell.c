@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:18 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/27 21:59:00 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@ static t_bool	is_cmd(char *arg, char *cmd)
 	return (!ft_strncmp(arg, cmd, ft_max(ft_strlen(arg), ft_strlen(cmd))));
 }
 
-int	main(int argc, char **argv, char **env)
+int	main(int argc, char **argv, char **temp_env)
 {
 	char			*line;
 	char			**args;
+	char			**env;
 	unsigned int	status;
 
 	printf("%i%s\n", argc, argv[0]);
+	env = copy_str_arr(temp_env);
 	while (TRUE)
 	{
 		line = readline(SHELL_PROMPT);

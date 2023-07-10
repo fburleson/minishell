@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/06/21 16:30:43 by joel             ###   ########.fr       */
+/*   Updated: 2023/06/27 21:58:37 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,5 @@ unsigned int	cmd_exit(void);
 //	UTILS
 
 char			*env_var(char *var_name, char **env);
+char			**copy_str_arr(char **str_arr);
 #endif
