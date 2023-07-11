@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/21 16:24:46 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 13:12:29 by joel             ###   ########.fr       */
+/*   Created: 2023/07/11 13:11:30 by joel              #+#    #+#             */
+/*   Updated: 2023/07/11 13:42:22 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_pwd(char **env)
+t_status	exec_program(char *path, char **args, char **env)
 {
-	printf("%s\n", env_var("PWD", env));
-	return (SUCCESS);
+	t_pid		p_id;
+	int			status;
+
+	p_id = fork();
+	waitpid(p_id, &status, WUNTRACED);
+	if (p_id != 0)
+		return ((t_status) status);
+	if (execve(path, args, env) == -1)
+		exit (EXEC_FAILED_ERR);
+	return ((t_status) status);
 }

@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:06:16 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 12:28:07 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 13:15:39 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static t_bool	is_cmd(char *arg, char *cmd)
 	return (!ft_strncmp(arg, cmd, ft_max(ft_strlen(arg), ft_strlen(cmd))));
 }
 
-unsigned int	exec_builtin(char **args, char **env)
+t_status	exec_builtin(char **args, char **env)
 {
 	if (is_cmd(args[0], CMD_EXIT))
 		return (cmd_exit());
@@ -30,6 +30,6 @@ unsigned int	exec_builtin(char **args, char **env)
 	else
 	{
 		printf("command not found:	%s\n", args[0]);
-		return (ERR_CMD_NOT_FOUND);
+		return (CMD_NOT_FOUND_ERR);
 	}
 }

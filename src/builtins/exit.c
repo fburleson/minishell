@@ -6,13 +6,13 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:20:25 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 12:31:32 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 13:12:21 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-unsigned int	cmd_exit(void)
+t_status	cmd_exit(void)
 {
 	printf("exit\n");
 	exit(SUCCESS);

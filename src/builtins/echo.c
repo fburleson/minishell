@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   echo.c                                             :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/06/20 19:42:11 by joel          #+#    #+#                 */
-/*   Updated: 2023/07/10 18:10:06 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   echo.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/20 19:42:11 by joel              #+#    #+#             */
+/*   Updated: 2023/07/11 13:12:10 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	print_qoutes(char *arg)
 	}
 }
 
-unsigned int	cmd_echo(char **args)
+t_status	cmd_echo(char **args)
 {
 	unsigned int	cidx;
 	t_bool			has_newline;

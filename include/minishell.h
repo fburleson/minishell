@@ -6,25 +6,28 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 12:25:46 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 13:57:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-# include "libft.h"
 # include <signal.h>
 # include <termios.h> 
+# include "libft.h"
 
 # define SUCCESS	0
 # define ERROR		1
 
-# define ERR_CMD_NOT_FOUND	127
+# define CMD_NOT_FOUND_ERR	127
+# define EXEC_FAILED_ERR	126
 
 # define FALSE		0
 # define TRUE		1
@@ -38,6 +41,8 @@
 # define CMD_STATUS	"$?"
 
 typedef unsigned int	t_bool;
+typedef unsigned int	t_status;
+typedef pid_t			t_pid;
 
 //	parse.c
 
@@ -47,6 +52,10 @@ char			**parse_line(char *line);
 
 char			**expand_args(char **arg, char **env);
 
+//	exec.c
+
+t_status		exec_program(char *path, char **args, char **env);
+
 //	builtin_exec.c
 
 unsigned int	exec_builtin(char **args, char **env);
@@ -54,10 +63,10 @@ unsigned int	exec_builtin(char **args, char **env);
 
 //	BUILTINS
 
-unsigned int	cmd_env(char **env);
-unsigned int	cmd_echo(char **args);
-unsigned int	cmd_pwd(char **env);
-unsigned int	cmd_exit(void);
+t_status		cmd_env(char **env);
+t_status		cmd_echo(char **args);
+t_status		cmd_pwd(char **env);
+t_status		cmd_exit(void);
 
 //	UTILS
 

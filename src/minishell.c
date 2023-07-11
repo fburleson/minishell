@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 12:35:54 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 13:58:00 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	main(int argc, char **argv, char **temp_env)
 	char			**raw_args;
 	char			**args;
 	char			**env;
+	t_status		status;
 
 	signal(SIGINT, &signalhandler);
 	signal(SIGQUIT, &signalhandler);
@@ -44,7 +45,9 @@ int	main(int argc, char **argv, char **temp_env)
 		add_history(line);
 		raw_args = parse_line(line);
 		args = expand_args(raw_args, env);
-		exec_builtin(args, env);
+		status = exec_program(args[0], args, env);
+		if (status)
+			status = exec_builtin(args, env);
 	}
 	return (SUCCESS);
 }
