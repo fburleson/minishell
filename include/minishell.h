@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/05/19 15:48:47 by joel          #+#    #+#                 */
-/*   Updated: 2023/07/10 18:42:19 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
+/*   Updated: 2023/07/11 12:25:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 
 # define SUCCESS	0
 # define ERROR		1
+
+# define ERR_CMD_NOT_FOUND	127
 
 # define FALSE		0
 # define TRUE		1
@@ -44,6 +46,11 @@ char			**parse_line(char *line);
 //	expander.c
 
 char			**expand_args(char **arg, char **env);
+
+//	builtin_exec.c
+
+unsigned int	exec_builtin(char **args, char **env);
+
 
 //	BUILTINS
 

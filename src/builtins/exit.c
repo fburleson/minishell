@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:20:25 by joel              #+#    #+#             */
-/*   Updated: 2023/06/21 16:37:05 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 12:31:32 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,5 @@
 unsigned int	cmd_exit(void)
 {
 	printf("exit\n");
-	return (SUCCESS);
+	exit(SUCCESS);
 }

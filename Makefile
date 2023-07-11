@@ -13,6 +13,7 @@ LIBDIR			=	./lib/
 SRCFILES		=	minishell.c		\
 					parse.c			\
 					expander.c		\
+					builtin_exec.c	\
 					env.c			\
 					echo.c			\
 					exit.c			\
