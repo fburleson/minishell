@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:46:59 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 16:07:18 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <dirent.h>
 # include <signal.h>
 # include <termios.h> 
 # include "libft.h"
@@ -41,6 +42,8 @@
 # define CMD_PWD	"pwd"
 # define CMD_STATUS	"$?"
 
+typedef DIR				t_dir;
+typedef struct dirent	t_dirent;
 typedef unsigned int	t_bool;
 typedef unsigned int	t_status;
 typedef pid_t			t_pid;
@@ -60,7 +63,6 @@ t_status		exec_program(char *path, char **args, char **env);
 //	builtin_exec.c
 
 unsigned int	exec_builtin(char **args, char **env);
-
 
 //	BUILTINS
 

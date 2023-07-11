@@ -6,13 +6,13 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:49:50 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 16:07:39 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	exit_status = 0;
+t_status	g_exit_status = 0;
 
 void	signalhandler(int signum)
 {
@@ -22,7 +22,7 @@ void	signalhandler(int signum)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		exit_status = NEW_PROMPT_STATUS;
+		g_exit_status = NEW_PROMPT_STATUS;
 	}
 	if (signum == SIGQUIT)
 		exit(SUCCESS);
@@ -48,10 +48,10 @@ int	main(int argc, char **argv, char **temp_env)
 			continue ;
 		add_history(line);
 		raw_args = parse_line(line);
-		args = expand_args(raw_args, env, exit_status);
-		exit_status = exec_program(args[0], args, env);
-		if (exit_status)
-			exit_status = exec_builtin(args, env);
+		args = expand_args(raw_args, env, g_exit_status);
+		g_exit_status = exec_program(args[0], args, env);
+		if (g_exit_status)
+			g_exit_status = exec_builtin(args, env);
 	}
 	return (SUCCESS);
 }
