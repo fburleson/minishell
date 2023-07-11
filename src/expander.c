@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/06/21 16:23:42 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 14:20:21 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,27 @@ static char	*get_var_name(char *arg)
 	return (var_name);
 }
 
-char	**expand_args(char **args, char **env)
+static char	*expand_arg(char *arg, char **env)
+{
+	char	*expanded;
+	char	*var_name;
+
+	if (arg[0] == '$')
+		expanded = env_var(arg + 1, env);
+	else if (arg[0] == '\"' && arg[1] == '$')
+	{
+		var_name = get_var_name(arg + 2);
+		expanded = env_var(var_name, env);
+		free(var_name);
+	}
+	else
+		expanded = ft_strdup(arg);
+	return (expanded);
+}
+
+char	**expand_args(char **args, char **env, t_status status)
 {
 	char			**expanded;
-	char			*var_name;
 	unsigned int	cidx;
 
 	expanded = (char **)malloc((n_args(args) + 1) * sizeof(char *));
@@ -52,16 +69,12 @@ char	**expand_args(char **args, char **env)
 	cidx = 0;
 	while (args[cidx])
 	{
-		if (args[cidx][0] == '$')
-			expanded[cidx] = env_var(args[cidx] + 1, env);
-		else if (args[cidx][0] == '\"' && args[cidx][1] == '$')
-		{
-			var_name = get_var_name(args[cidx] + 2);
-			expanded[cidx] = env_var(var_name, env);
-			free(var_name);
-		}
+		if (!ft_strncmp(args[cidx], "$?", 2))
+			expanded[cidx] = ft_itoa((int) status);
+		else if (!ft_strncmp(args[cidx], "\"$?\"", 4))
+			expanded[cidx] = ft_itoa((int) status);
 		else
-			expanded[cidx] = ft_strdup(args[cidx]);
+			expanded[cidx] = expand_arg(args[cidx], env);
 		cidx++;
 	}
 	expanded[cidx] = NULL;

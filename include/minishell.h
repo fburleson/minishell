@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 13:57:46 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 14:13:18 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char			**parse_line(char *line);
 
 //	expander.c
 
-char			**expand_args(char **arg, char **env);
+char			**expand_args(char **arg, char **env, t_status status);
 
 //	exec.c
 
