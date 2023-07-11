@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 12:31:05 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 12:35:54 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	signalhandler(int signum)
 int	main(int argc, char **argv, char **temp_env)
 {
 	char			*line;
+	char			**raw_args;
 	char			**args;
 	char			**env;
 
@@ -41,8 +42,8 @@ int	main(int argc, char **argv, char **temp_env)
 		if (ft_isempty(line))
 			continue ;
 		add_history(line);
-		args = parse_line(line);
-		args = expand_args(args, env);
+		raw_args = parse_line(line);
+		args = expand_args(raw_args, env);
 		exec_builtin(args, env);
 	}
 	return (SUCCESS);
