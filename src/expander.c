@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:20:21 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 14:31:34 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static char	*get_var_name(char *arg)
 	if (!var_name)
 		return (NULL);
 	cidx = 0;
-	while (arg[cidx] != '\"')
+	while (arg[cidx] && arg[cidx] != '\"')
 	{
 		var_name[cidx] = arg[cidx];
 		cidx++;
