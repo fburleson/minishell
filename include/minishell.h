@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:13:18 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 14:46:59 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@
 # define SUCCESS	0
 # define ERROR		1
 
-# define CMD_NOT_FOUND_ERR	127
-# define EXEC_FAILED_ERR	126
+# define EXEC_FAILED_STATUS		126
+# define CMD_NOT_FOUND_STATUS	127
+# define NEW_PROMPT_STATUS		130
 
 # define FALSE		0
 # define TRUE		1

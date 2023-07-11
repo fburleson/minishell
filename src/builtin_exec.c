@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:06:16 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 13:15:39 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/11 14:47:05 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,6 @@ t_status	exec_builtin(char **args, char **env)
 	else
 	{
 		printf("command not found:	%s\n", args[0]);
-		return (CMD_NOT_FOUND_ERR);
+		return (CMD_NOT_FOUND_STATUS);
 	}
 }
