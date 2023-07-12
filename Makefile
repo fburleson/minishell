@@ -21,6 +21,7 @@ SRCFILES		=	minishell.c		\
 					pwd.c			\
 					env_var.c		\
 					copy_str_arr.c	\
+					is_builtin.c	\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 

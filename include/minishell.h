@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/12 14:41:12 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/07/12 16:30:48 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/wait.h>
@@ -75,4 +76,5 @@ t_status		cmd_exit(void);
 
 char			*env_var(char *var_name, char **env);
 char			**copy_str_arr(char **str_arr);
+t_bool			is_builtin(char *cmd);
 #endif

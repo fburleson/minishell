@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtin_exec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:06:16 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:47:05 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/12 16:17:41 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,5 @@ t_status	exec_builtin(char **args, char **env)
 	else if (is_cmd(args[0], CMD_PWD))
 		return (cmd_pwd(env));
 	else
-	{
-		printf("command not found:	%s\n", args[0]);
 		return (CMD_NOT_FOUND_STATUS);
-	}
 }
