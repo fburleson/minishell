@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:11:30 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 16:21:28 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/12 15:26:42 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ t_status	exec_program(char *path, char **args, char **env)
 	char		*abs_path;
 	char		*exec_path;
 
+	status = SUCCESS;
 	abs_path = get_abs_path(path, env);
 	exec_path = abs_path;
 	if (path[0] == '/')
 		exec_path = path;
 	p_id = fork();
-	waitpid(p_id, &status, WUNTRACED);
 	if (p_id != 0)
-		return ((t_status) status);
-	if (execve(exec_path, args, env) == -1)
-		exit (EXEC_FAILED_STATUS);
+		waitpid(p_id, &status, WUNTRACED);
+	else
+		execve(exec_path, args, env);
 	return ((t_status) status);
 }
