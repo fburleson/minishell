@@ -20,6 +20,8 @@ SRCFILES		=	minishell.c		\
 					exit.c			\
 					pwd.c			\
 					env_var.c		\
+					str_arr_len.c	\
+					free_str_arr.c	\
 					copy_str_arr.c	\
 					is_builtin.c	\
 

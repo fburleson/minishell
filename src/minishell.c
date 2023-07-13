@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/12 16:50:17 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/07/13 10:48:48 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ int	main(int argc, char **argv, char **temp_env)
 			g_exit_status = exec_builtin(args, env);
 		if (g_exit_status == CMD_NOT_FOUND_STATUS)
 			printf("minishell:	command not found:	%s\n", args[0]);
+		free_str_arr(raw_args);
+		free_str_arr(args);
+		free(line);
 	}
 	return (SUCCESS);
 }

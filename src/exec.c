@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:11:30 by joel              #+#    #+#             */
-/*   Updated: 2023/07/12 16:49:01 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/07/13 11:04:49 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,12 @@ static char	*get_abs_path(char *path, char **env)
 	t_dir			*current_dir;
 	unsigned int	current_env_path;
 	t_dirent		*ent;
+	char			*abs_path;
+	char			*path_var;
 
-	env_paths = ft_split(env_var("PATH", env), ':');
+	path_var = env_var("PATH", env);
+	env_paths = ft_split(path_var, ':');
+	free(path_var);
 	if (!env_paths)
 		return (NULL);
 	current_env_path = 0;
@@ -47,13 +51,16 @@ static char	*get_abs_path(char *path, char **env)
 					ft_max(ft_strlen(path), ft_strlen(ent->d_name))))
 			{
 				closedir(current_dir);
-				return (join_paths(env_paths[current_env_path], path));
+				abs_path = join_paths(env_paths[current_env_path], path);
+				free_str_arr(env_paths);
+				return (abs_path);
 			}
 			ent = readdir(current_dir);
 		}
 		closedir(current_dir);
 		current_env_path++;
 	}
+	free_str_arr(env_paths);
 	return (NULL);
 }
 
@@ -72,6 +79,7 @@ t_status	exec_program(char *path, char **args, char **env)
 		if (fd == -1)
 		{
 			close(fd);
+			free(exec_path);
 			return (CMD_NOT_FOUND_STATUS);
 		}
 		close(fd);
@@ -80,12 +88,16 @@ t_status	exec_program(char *path, char **args, char **env)
 	{
 		exec_path = get_abs_path(path, env);
 		if (!exec_path)
+		{
+			free(exec_path);
 			return (CMD_NOT_FOUND_STATUS);
+		}
 	}
 	p_id = fork();
 	if (p_id == 0)
 		execve(exec_path, args, env);
 	else
 		wait(&status);
+	free(exec_path);
 	return ((t_status) status);
 }

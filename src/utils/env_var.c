@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:27:07 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/06/21 15:32:21 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/13 10:51:34 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,11 @@ char	*env_var(char *var_name, char **env)
 	unsigned int	cidx;
 
 	cidx = 0;
-	value = ft_strdup("");
 	while (env[cidx])
 	{
 		if (!ft_strncmp(var_name, env[cidx],
 				ft_max(ft_strlen(var_name), env_var_len(env[cidx]))))
-		{
-			free(value);
 			value = copy_env_var(env[cidx]);
-		}
 		cidx++;
 	}
 	return (value);
