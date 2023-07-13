@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 14:31:34 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/13 11:52:34 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ char	**expand_args(char **args, char **env, t_status status)
 	cidx = 0;
 	while (args[cidx])
 	{
-		if (!ft_strncmp(args[cidx], "$?", 2))
+		if (!ft_strncmp(args[cidx], CMD_STATUS, 2))
 			expanded[cidx] = ft_itoa((int) status);
-		else if (!ft_strncmp(args[cidx], "\"$?\"", 4))
+		else if (!ft_strncmp(args[cidx], "\""CMD_STATUS"\"", 4))
 			expanded[cidx] = ft_itoa((int) status);
 		else
 			expanded[cidx] = expand_arg(args[cidx], env);
