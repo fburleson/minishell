@@ -10,20 +10,22 @@ BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
 
-SRCFILES		=	minishell.c		\
-					parse.c			\
-					expander.c		\
-					exec.c			\
-					builtin_exec.c	\
-					env.c			\
-					echo.c			\
-					exit.c			\
-					pwd.c			\
-					env_var.c		\
-					str_arr_len.c	\
-					free_str_arr.c	\
-					copy_str_arr.c	\
-					is_builtin.c	\
+SRCFILES		=	minishell.c			\
+					parse.c				\
+					expander.c			\
+					exec.c				\
+					builtin_exec.c		\
+					env.c				\
+					echo.c				\
+					exit.c				\
+					pwd.c				\
+					env_var.c			\
+					str_arr_len.c		\
+					does_file_exist.c	\
+					free_str_arr.c		\
+					get_abs_path.c		\
+					copy_str_arr.c		\
+					is_builtin.c		\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 

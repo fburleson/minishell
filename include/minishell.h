@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/13 10:46:31 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/14 11:40:47 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,15 @@ typedef unsigned int	t_bool;
 typedef unsigned int	t_status;
 typedef pid_t			t_pid;
 
+typedef struct s_cmd
+{
+	char	*line;
+	char	*program;
+	char	**raw_args;
+	char	**args;
+	char	*out;
+}						t_cmd;
+
 //	parse.c
 
 char			**parse_line(char *line);
@@ -77,6 +86,8 @@ t_status		cmd_exit(void);
 char			*env_var(char *var_name, char **env);
 unsigned int	str_arr_len(char **str_arr);
 void			free_str_arr(char **str_arr);
+char			*get_abs_path(char *path, char **env);
+t_bool			does_file_exist(char *file_name);
 char			**copy_str_arr(char **str_arr);
 t_bool			is_builtin(char *cmd);
 #endif

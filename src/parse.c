@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:44:17 by joel              #+#    #+#             */
-/*   Updated: 2023/06/21 14:25:29 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/14 11:09:55 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,6 @@ char	**parse_line(char *line)
 			cidx++;
 		arg_l = arg_len(line + cidx);
 		args[current_arg] = copy_arg(line + cidx, arg_l);
-		if (line[cidx] == '\"' || line[cidx] == '\'')
-		{
-			cidx++;
-			while (line[cidx] && line[cidx] != '\"' && line[cidx] != '\'')
-				cidx++;
-		}
 		while (line[cidx] && line[cidx] != ' ')
 			cidx++;
 		current_arg++;
