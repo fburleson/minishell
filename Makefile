@@ -21,7 +21,6 @@ SRCFILES		=	minishell.c			\
 					pwd.c				\
 					env_var.c			\
 					str_arr_len.c		\
-					does_file_exist.c	\
 					free_str_arr.c		\
 					get_abs_path.c		\
 					copy_str_arr.c		\

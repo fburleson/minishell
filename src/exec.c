@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:11:30 by joel              #+#    #+#             */
-/*   Updated: 2023/07/14 11:36:46 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/14 12:11:03 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_status	exec_program(char *path, char **args, char **env)
 		exec_path = ft_strdup(path);
 	else
 		exec_path = get_abs_path(path, env);
-	if (!exec_path || !does_file_exist(exec_path))
+	if (!exec_path || access(exec_path, F_OK))
 	{
 		free(exec_path);
 		return (CMD_NOT_FOUND_STATUS);
