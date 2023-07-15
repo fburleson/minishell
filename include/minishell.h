@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/14 12:11:38 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/15 12:26:50 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <fcntl.h>
+# include <sys/stat.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <sys/wait.h>
@@ -44,6 +45,7 @@
 # define CMD_STATUS	"$?"
 
 typedef DIR				t_dir;
+typedef struct stat		t_fstats;
 typedef struct dirent	t_dirent;
 typedef unsigned int	t_bool;
 typedef unsigned int	t_status;

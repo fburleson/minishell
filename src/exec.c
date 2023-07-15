@@ -6,11 +6,19 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 13:11:30 by joel              #+#    #+#             */
-/*   Updated: 2023/07/14 12:11:03 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/15 12:33:37 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_bool	is_file(char *path)
+{
+	t_fstats	file_stats;
+
+	stat(path, &file_stats);
+	return (!S_ISDIR(file_stats.st_mode));
+}
 
 t_status	exec_program(char *path, char **args, char **env)
 {
@@ -23,7 +31,7 @@ t_status	exec_program(char *path, char **args, char **env)
 		exec_path = ft_strdup(path);
 	else
 		exec_path = get_abs_path(path, env);
-	if (!exec_path || access(exec_path, F_OK))
+	if (!exec_path || access(exec_path, F_OK) || !is_file(exec_path))
 	{
 		free(exec_path);
 		return (CMD_NOT_FOUND_STATUS);
