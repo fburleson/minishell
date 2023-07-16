@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 10:27:07 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/07/15 12:40:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/16 13:12:06 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,7 @@ char	*env_var(char *var_name, char **env)
 		}
 		cidx++;
 	}
+	if (!value)
+		return (NULL);
 	return (value);
 }

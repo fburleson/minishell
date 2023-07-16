@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/07/16 12:50:46 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/16 13:11:22 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static char	*expand_arg(char *arg, char **env)
 		expanded = expand_str(arg, env);
 	else
 		expanded = ft_strdup(arg);
+	if (!expanded)
+		return (NULL);
 	return (expanded);
 }
 
@@ -52,6 +54,11 @@ char	**expand_args(char **args, char **env, t_status status)
 			expanded[cidx] = ft_itoa((int) status);
 		else
 			expanded[cidx] = expand_arg(args[cidx], env);
+		if (!(expanded[cidx]))
+		{
+			free_str_arr(expanded);
+			return (NULL);
+		}
 		cidx++;
 	}
 	expanded[cidx] = NULL;
