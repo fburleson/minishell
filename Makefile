@@ -6,12 +6,14 @@ RM				=	rm -f
 SRCDIR			=	./src/
 BUILTINSDIR		=	$(SRCDIR)builtins/
 UTILSDIR		=	$(SRCDIR)utils/
+EXPANDERDIR		=	$(SRCDIR)expander/
 BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
 
 SRCFILES		=	minishell.c			\
 					parse.c				\
+					expand_str.c		\
 					expander.c			\
 					exec.c				\
 					builtin_exec.c		\
@@ -41,6 +43,10 @@ $(NAME):		$(LIBDIR)$(LIBFTNAME) $(BINPATHS)
 $(BINDIR)%.o:	$(SRCDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(EXPANDERDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@	
 
 $(BINDIR)%.o:	$(BUILTINSDIR)%.c
 					@mkdir -p $(BINDIR)
