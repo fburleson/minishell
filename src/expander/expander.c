@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 12:56:40 by joel              #+#    #+#             */
-/*   Updated: 2023/07/13 11:52:34 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/16 12:50:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,14 @@ static unsigned int	n_args(char	**args)
 	return (n);
 }
 
-static char	*get_var_name(char *arg)
-{
-	char			*var_name;
-	unsigned int	cidx;
-
-	var_name = (char *)malloc(ft_strlen(arg) * sizeof(char));
-	if (!var_name)
-		return (NULL);
-	cidx = 0;
-	while (arg[cidx] && arg[cidx] != '\"')
-	{
-		var_name[cidx] = arg[cidx];
-		cidx++;
-	}
-	var_name[cidx] = '\0';
-	return (var_name);
-}
-
 static char	*expand_arg(char *arg, char **env)
 {
-	char	*expanded;
-	char	*var_name;
+	char			*expanded;
 
 	if (arg[0] == '$')
 		expanded = env_var(arg + 1, env);
-	else if (arg[0] == '\"' && arg[1] == '$')
-	{
-		var_name = get_var_name(arg + 2);
-		expanded = env_var(var_name, env);
-		free(var_name);
-	}
+	else if (arg[0] == '\"')
+		expanded = expand_str(arg, env);
 	else
 		expanded = ft_strdup(arg);
 	return (expanded);

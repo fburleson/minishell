@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/15 12:26:50 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/15 15:39:29 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,10 @@ typedef struct s_cmd
 
 char			**parse_line(char *line);
 
-//	expander.c
+//	EXPANDER (expander.c, expander_str.c)
 
 char			**expand_args(char **arg, char **env, t_status status);
+char			*expand_str(char *str, char **env);
 
 //	exec.c
 
