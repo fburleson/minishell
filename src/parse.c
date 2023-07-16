@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:25:22 by joel              #+#    #+#             */
-/*   Updated: 2023/07/16 12:40:18 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/16 12:58:07 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static unsigned int	arg_len(char *start_arg)
 	}
 	else
 	{
-		while (start_arg[cidx] && start_arg[cidx] != ' ')
+		while (start_arg[cidx] && start_arg[cidx] != ' '
+			&& start_arg[cidx] != '\'' && start_arg[cidx] != '\"')
 			cidx++;
 	}
 	return (cidx);
@@ -50,7 +51,7 @@ static unsigned int	n_args(char *line)
 	{
 		while (line[cidx] && line[cidx] == ' ')
 			cidx++;
-		cidx = arg_len(line + cidx);
+		cidx += arg_len(line + cidx);
 		while (line[cidx] && line[cidx] != ' ')
 			cidx++;
 		if (line[cidx])
