@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:42:11 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 13:12:10 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/16 13:35:40 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,21 @@ static void	print_qoutes(char *arg)
 	unsigned int	cidx;
 
 	cidx = 1;
-	while (arg[cidx] && arg[cidx] != '\"' && arg[cidx] != '\'')
+	if (*arg == '\'')
 	{
-		printf("%c", arg[cidx]);
-		cidx++;
+		while (arg[cidx] && arg[cidx] != '\'')
+		{
+			printf("%c", arg[cidx]);
+			cidx++;
+		}
+	}
+	if (*arg == '\"')
+	{
+		while (arg[cidx] && arg[cidx] != '\"')
+		{
+			printf("%c", arg[cidx]);
+			cidx++;
+		}
 	}
 }
 
