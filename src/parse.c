@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:25:22 by joel              #+#    #+#             */
-/*   Updated: 2023/07/16 12:58:07 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/17 21:27:50 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,7 @@ static unsigned int	n_args(char *line)
 		cidx += arg_len(line + cidx);
 		while (line[cidx] && line[cidx] != ' ')
 			cidx++;
-		if (line[cidx])
-			n++;
+		n++;
 	}
 	return (n);
 }
@@ -84,7 +83,7 @@ char	**parse_line(char *line)
 	unsigned int	current_arg;
 	unsigned int	line_idx;
 
-	args = (char **)malloc((n_args(line) + 1) * sizeof(char));
+	args = (char **)malloc((n_args(line) + 1) * sizeof(char *));
 	if (!args)
 		return (NULL);
 	current_arg = 0;
