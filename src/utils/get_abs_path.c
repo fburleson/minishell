@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/14 11:26:10 by joel              #+#    #+#             */
-/*   Updated: 2023/07/14 11:37:07 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/18 17:20:15 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*get_abs_path(char *path, char **env)
 			free_str_arr(env_paths);
 			return (abs_path);
 		}
+		closedir(current_dir);
 		current_env_path++;
 	}
 	free_str_arr(env_paths);
