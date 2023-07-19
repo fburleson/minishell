@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:25:22 by joel              #+#    #+#             */
-/*   Updated: 2023/07/17 21:27:50 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:47:01 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,27 @@ static char	*copy_arg(char *start_arg, unsigned int arg_len)
 	return (arg);
 }
 
+static unsigned int	redirection_arg_len(char *start_arg)
+{
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (start_arg[cidx] && start_arg[cidx] == ' ')
+		cidx++;
+	while (start_arg[cidx] && ft_isalnum(start_arg[cidx]))
+		cidx++;
+	while (start_arg[cidx] && start_arg[cidx] == ' ')
+		cidx++;
+	return (cidx + 1);
+}
+
 char	**parse_line(char *line)
 {
 	char			**args;
 	unsigned int	current_arg;
 	unsigned int	line_idx;
 
-	args = (char **)malloc((n_args(line) + 1) * sizeof(char *));
+	args = (char **)ft_calloc((n_args(line) + 1), sizeof(char *));
 	if (!args)
 		return (NULL);
 	current_arg = 0;
@@ -92,6 +106,8 @@ char	**parse_line(char *line)
 	{
 		while (line[line_idx] && line[line_idx] == ' ')
 			line_idx++;
+		while (line[line_idx] == '>')
+			line_idx += redirection_arg_len(line + line_idx + 1);
 		args[current_arg] = copy_arg(line + line_idx, arg_len(line + line_idx));
 		if (!(args[current_arg]))
 		{
@@ -101,6 +117,5 @@ char	**parse_line(char *line)
 		line_idx += arg_len(line + line_idx);
 		current_arg++;
 	}
-	args[current_arg] = NULL;
 	return (args);
 }

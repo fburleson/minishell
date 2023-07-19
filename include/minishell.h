@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/15 15:39:29 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/19 16:44:58 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ typedef struct s_cmd
 	char	*program;
 	char	**raw_args;
 	char	**args;
-	char	*out;
+	char	*output_file;
+	int		fd_stdout;
+	int		fd_redout;
+	t_bool	append_mode;
 }						t_cmd;
 
 //	parse.c
@@ -68,6 +71,16 @@ char			**parse_line(char *line);
 
 char			**expand_args(char **arg, char **env, t_status status);
 char			*expand_str(char *str, char **env);
+
+//	parse_redirection.c
+
+char			*parse_redirection(char	*line);
+t_bool			is_append_mode(char *line);
+
+//	setup_redirection.c
+
+void			setup_redirect_out(t_cmd *cmd);
+void			reset_redirection(t_cmd *cmd);
 
 //	exec.c
 

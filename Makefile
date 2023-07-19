@@ -15,6 +15,8 @@ SRCFILES		=	minishell.c			\
 					parse.c				\
 					expand_str.c		\
 					expander.c			\
+					parse_redirection.c	\
+					setup_redirection.c	\
 					exec.c				\
 					builtin_exec.c		\
 					env.c				\
