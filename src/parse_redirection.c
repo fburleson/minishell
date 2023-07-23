@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:11:01 by joel              #+#    #+#             */
-/*   Updated: 2023/07/23 21:33:59 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/23 21:40:06 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static char	*copy_file_name(char *start_name)
 		return (NULL);
 	copy[0] = '\0';
 	cidx = 0;
-	while (ft_isalnum(start_name[cidx]))
+	while (start_name[cidx] && start_name[cidx] != ' ')
 	{
 		copy[cidx] = start_name[cidx];
 		cidx++;
