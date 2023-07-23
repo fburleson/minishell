@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:11:01 by joel              #+#    #+#             */
-/*   Updated: 2023/07/19 16:19:25 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/23 21:33:59 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*parse_redirection(char	*line)
 	file_name = ft_strdup("");
 	while (line[cidx])
 	{
-		while (line[cidx] && (line[cidx] == ' ' || ft_isalnum(line[cidx])))
+		while (line[cidx] && line[cidx] != '>')
 			cidx++;
 		if (line[cidx] == '>')
 		{
@@ -63,7 +63,7 @@ char	*parse_redirection(char	*line)
 			if (!file_name)
 				return (NULL);
 		}
-		while (line[cidx] && ft_isalnum(line[cidx]))
+		while (line[cidx] && line[cidx] != ' ')
 			cidx++;
 	}
 	return (file_name);
