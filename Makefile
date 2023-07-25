@@ -41,7 +41,6 @@ LIBFTDIR		=	./libft/
 $(NAME):		$(LIBDIR)$(LIBFTNAME) $(BINPATHS)
 					$(CC) $(CFLAGS) $(BINPATHS) $(LIBDIR)$(LIBFTNAME) -lreadline -o $(NAME)
 
-
 $(BINDIR)%.o:	$(SRCDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
@@ -61,7 +60,6 @@ $(BINDIR)%.o:	$(UTILSDIR)%.c
 $(LIBDIR)$(LIBFTNAME):
 					$(MAKE) -C $(LIBFTDIR)
 
-
 all:			$(NAME)
 
 clean:
@@ -75,4 +73,3 @@ fclean:			clean
 re:				fclean $(NAME)
 
 .PHONY:			all clean fclean re
-

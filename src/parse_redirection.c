@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:11:01 by joel              #+#    #+#             */
-/*   Updated: 2023/07/23 21:40:06 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/25 19:16:54 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static unsigned int	file_name_len(char *start_name)
 	unsigned int	cidx;
 
 	cidx = 0;
-	while (start_name[cidx] && ft_isalnum(start_name[cidx]))
+	while (start_name[cidx] && start_name[cidx] != ' ')
 		cidx++;
 	return (cidx);
 }
@@ -41,7 +41,7 @@ static char	*copy_file_name(char *start_name)
 	return (copy);
 }
 
-char	*parse_redirection(char	*line)
+char	*parse_redirection(char	*line, char redirection_symbol)
 {
 	char			*file_name;
 	unsigned int	cidx;
@@ -50,12 +50,12 @@ char	*parse_redirection(char	*line)
 	file_name = ft_strdup("");
 	while (line[cidx])
 	{
-		while (line[cidx] && line[cidx] != '>')
+		while (line[cidx] && line[cidx] != redirection_symbol)
 			cidx++;
-		if (line[cidx] == '>')
+		if (line[cidx] == redirection_symbol)
 		{
 			free(file_name);
-			while (line[cidx] && line[cidx] == '>')
+			while (line[cidx] && line[cidx] == redirection_symbol)
 				cidx++;
 			while (line[cidx] && line[cidx] == ' ')
 				cidx++;

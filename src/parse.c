@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:25:22 by joel              #+#    #+#             */
-/*   Updated: 2023/07/25 19:09:46 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/25 19:14:23 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	**parse_line(char *line)
 	{
 		while (line[line_idx] && line[line_idx] == ' ')
 			line_idx++;
-		while (line[line_idx] == '>')
+		while (line[line_idx] == '>' || line[line_idx] == '<')
 			line_idx += redirection_arg_len(line + line_idx + 1);
 		args[current_arg] = copy_arg(line + line_idx, arg_len(line + line_idx));
 		if (!(args[current_arg]))

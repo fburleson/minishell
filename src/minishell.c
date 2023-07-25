@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/19 16:42:58 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/25 19:22:21 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	free_cmd(t_cmd *cmd)
 static void	exec_cmd(t_cmd *cmd, char **env)
 {	
 	setup_redirect_out(cmd);
+	setup_redirect_in(cmd);
 	if (!is_builtin(cmd->program))
 		g_exit_status = exec_program(cmd->program, cmd->args, env);
 	else
@@ -68,7 +69,8 @@ int	main(int argc, char **argv, char **temp_env)
 		cmd.raw_args = parse_line(cmd.line);
 		cmd.args = expand_args(cmd.raw_args, env, g_exit_status);
 		cmd.program = cmd.args[0];
-		cmd.output_file = parse_redirection(cmd.line);
+		cmd.output_file = parse_redirection(cmd.line, '>');
+		cmd.input_file = parse_redirection(cmd.line, '<');
 		cmd.append_mode = is_append_mode(cmd.line);
 		exec_cmd(&cmd, env);
 		if (g_exit_status == CMD_NOT_FOUND_STATUS)
