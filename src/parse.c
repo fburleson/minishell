@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/16 11:25:22 by joel              #+#    #+#             */
-/*   Updated: 2023/07/19 16:47:01 by joel             ###   ########.fr       */
+/*   Updated: 2023/07/25 19:09:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static unsigned int	redirection_arg_len(char *start_arg)
 	cidx = 0;
 	while (start_arg[cidx] && start_arg[cidx] == ' ')
 		cidx++;
-	while (start_arg[cidx] && ft_isalnum(start_arg[cidx]))
+	while (start_arg[cidx] && start_arg[cidx] != ' ')
 		cidx++;
 	while (start_arg[cidx] && start_arg[cidx] == ' ')
 		cidx++;
