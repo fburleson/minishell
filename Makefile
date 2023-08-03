@@ -7,6 +7,7 @@ SRCDIR			=	./src/
 BUILTINSDIR		=	$(SRCDIR)builtins/
 UTILSDIR		=	$(SRCDIR)utils/
 EXPANDERDIR		=	$(SRCDIR)expander/
+REDIRECTIONDIR	=	$(SRCDIR)redirection/
 BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
@@ -50,6 +51,10 @@ $(BINDIR)%.o:	$(EXPANDERDIR)%.c
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@	
 
 $(BINDIR)%.o:	$(BUILTINSDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(REDIRECTIONDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 

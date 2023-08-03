@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 15:48:47 by joel              #+#    #+#             */
-/*   Updated: 2023/07/25 19:22:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/08/03 20:51:25 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@
 # define SUCCESS	0
 # define ERROR		1
 
+# define FALSE		0
+# define TRUE		1
+
 # define EXEC_FAILED_STATUS		126
 # define CMD_NOT_FOUND_STATUS	127
 # define NEW_PROMPT_STATUS		130
-
-# define FALSE		0
-# define TRUE		1
 
 # define SHELL_PROMPT	"\e[1m\x1b[32mminishell$ \x1b[0m"
 
@@ -44,6 +44,15 @@
 # define CMD_PWD	"pwd"
 # define CMD_STATUS	"$?"
 
+# define INRED_SYM	'<'
+# define OUTRED_SYM	'>'
+
+# define OUTPUT_MODE	0
+# define INPUT_MODE		1
+# define APPEND_MODE 	2
+# define HEREDOC_MDOE	3
+# define INVALID_MODE	4
+
 typedef DIR				t_dir;
 typedef struct stat		t_fstats;
 typedef struct dirent	t_dirent;
@@ -51,19 +60,25 @@ typedef unsigned int	t_bool;
 typedef unsigned int	t_status;
 typedef pid_t			t_pid;
 
+typedef struct redir_file
+{
+	char			*file_path;
+	unsigned int	mode;
+}						t_redir_file;
+
 typedef struct s_cmd
 {
-	char	*line;
-	char	*program;
-	char	**raw_args;
-	char	**args;
-	char	*output_file;
-	int		fd_stdout;
-	int		fd_redout;
-	t_bool	append_mode;
-	char	*input_file;
-	int		fd_stdin;
-	int		fd_redin;
+	char			*line;
+	char			*program;
+	char			**raw_args;
+	char			**args;
+	t_redir_file	**output_files;
+	t_redir_file	**input_files;
+	int				fd_stdout;
+	int				fd_redout;
+	int				fd_stdin;
+	int				fd_redin;
+	char			*delimiter;
 }						t_cmd;
 
 //	parse.c
@@ -77,8 +92,7 @@ char			*expand_str(char *str, char **env);
 
 //	parse_redirection.c
 
-char			*parse_redirection(char	*line, char redirection_symbol);
-t_bool			is_append_mode(char *line);
+t_redir_file	**parse_redirection(char *line, char symbol);
 
 //	setup_redirection.c
 

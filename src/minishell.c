@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/22 22:24:57 by joel              #+#    #+#             */
-/*   Updated: 2023/07/25 19:22:21 by joel             ###   ########.fr       */
+/*   Updated: 2023/08/03 20:22:20 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_status	g_exit_status = 0;
 static void	free_cmd(t_cmd *cmd)
 {
 	free(cmd->line);
-	free(cmd->output_file);
 	free_str_arr(cmd->raw_args);
 	free_str_arr(cmd->args);
 }
@@ -55,6 +54,10 @@ int	main(int argc, char **argv, char **temp_env)
 	signal(SIGINT, &signalhandler);
 	signal(SIGQUIT, &signalhandler);
 	printf("%i%s\n", argc, argv[0]);
+	cmd.fd_redout = -1;
+	cmd.fd_stdout = -1;
+	cmd.fd_redin = -1;
+	cmd.fd_stdin = -1;
 	env = copy_str_arr(temp_env);
 	while (TRUE)
 	{
@@ -62,16 +65,15 @@ int	main(int argc, char **argv, char **temp_env)
 		if (cmd.line == NULL)
 			return (ERROR);
 		if (ft_isempty(cmd.line))
-		{
+		{	
 			free(cmd.line);
 			continue ;
 		}
 		cmd.raw_args = parse_line(cmd.line);
 		cmd.args = expand_args(cmd.raw_args, env, g_exit_status);
 		cmd.program = cmd.args[0];
-		cmd.output_file = parse_redirection(cmd.line, '>');
-		cmd.input_file = parse_redirection(cmd.line, '<');
-		cmd.append_mode = is_append_mode(cmd.line);
+		cmd.output_files = parse_redirection(cmd.line, OUTRED_SYM);
+		cmd.input_files = parse_redirection(cmd.line, INRED_SYM);
 		exec_cmd(&cmd, env);
 		if (g_exit_status == CMD_NOT_FOUND_STATUS)
 			printf("minishell:	command not found:	%s\n", cmd.program);
