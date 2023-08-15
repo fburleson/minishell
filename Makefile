@@ -1,35 +1,51 @@
 NAME			=	minishell
 CC				=	gcc
-CFLAGS			=	-Wall -Werror -Wextra
+CFLAGS			=	-Wall -Werror -Wextra -fsanitize=leak
 RM				=	rm -f
 
 SRCDIR			=	./src/
+PARSEDIR		=	$(SRCDIR)parse/
+INITDIR			=	$(SRCDIR)init_cmd/
+INITREDIRECTDIR	=	$(SRCDIR)init_redirection/
+REDIRECTDIR		=	$(SRCDIR)redirect/
+UTILDIR			=	$(SRCDIR)util/
+EXECDIR			=	$(SRCDIR)exec/
 BUILTINSDIR		=	$(SRCDIR)builtins/
-UTILSDIR		=	$(SRCDIR)utils/
-EXPANDERDIR		=	$(SRCDIR)expander/
-REDIRECTIONDIR	=	$(SRCDIR)redirection/
 BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
 
 SRCFILES		=	minishell.c			\
 					parse.c				\
-					expand_str.c		\
-					expander.c			\
-					parse_redirection.c	\
+					parse_arg.c			\
+					expand.c			\
+					parse_util.c		\
+					init_args.c			\
+					init_cmd.c			\
+					init_cmds.c			\
+					cmd_util.c			\
+					init_outfiles.c		\
+					init_infile.c		\
+					init_iofile.c		\
+					create_heredoc.c	\
 					setup_redirection.c	\
-					exec.c				\
-					builtin_exec.c		\
-					env.c				\
+					redirection_util.c	\
+					exec_program.c		\
+					exec_builtin.c		\
+					exec_cmd.c			\
+					exec_util.c			\
 					echo.c				\
+					env.c				\
 					exit.c				\
 					pwd.c				\
-					env_var.c			\
-					str_arr_len.c		\
-					free_str_arr.c		\
-					get_abs_path.c		\
-					copy_str_arr.c		\
-					is_builtin.c		\
+					lstrlen.c			\
+					copy_strarray.c		\
+					strarraylen.c		\
+					free_strarray.c		\
+					print_strarray.c	\
+					envvar.c			\
+					cmpstr.c			\
+					excludechars.c		\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 
@@ -46,19 +62,31 @@ $(BINDIR)%.o:	$(SRCDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
-$(BINDIR)%.o:	$(EXPANDERDIR)%.c
+$(BINDIR)%.o:	$(UTILDIR)%.c
 					@mkdir -p $(BINDIR)
-					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@	
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(PARSEDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(INITDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(INITREDIRECTDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(REDIRECTDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
+
+$(BINDIR)%.o:	$(EXECDIR)%.c
+					@mkdir -p $(BINDIR)
+					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
 $(BINDIR)%.o:	$(BUILTINSDIR)%.c
-					@mkdir -p $(BINDIR)
-					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
-
-$(BINDIR)%.o:	$(REDIRECTIONDIR)%.c
-					@mkdir -p $(BINDIR)
-					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
-
-$(BINDIR)%.o:	$(UTILSDIR)%.c
 					@mkdir -p $(BINDIR)
 					$(CC) $(CFLAGS) -I $(HEADERDIR) -c $< -o $@
 
@@ -69,11 +97,10 @@ all:			$(NAME)
 
 clean:
 					@$(RM) $(BINPATHS)
-					$(MAKE) clean -C $(LIBFTDIR)
+					$(MAKE) fclean -C $(LIBFTDIR)
 
 fclean:			clean
 					@$(RM) $(NAME)
-					$(MAKE) fclean -C $(LIBFTDIR)
 
 re:				fclean $(NAME)
 

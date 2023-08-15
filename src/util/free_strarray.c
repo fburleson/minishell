@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   free_strarray.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:31:18 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:31:23 by joel             ###   ########.fr       */
+/*   Created: 2023/08/10 14:32:43 by joel              #+#    #+#             */
+/*   Updated: 2023/08/10 14:35:12 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_exit(void)
+void	free_strarray(char **array)
 {
-	printf("exit\n");
-	exit(SUCCESS);
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (array[cidx])
+	{
+		free(array[cidx]);
+		cidx++;
+	}
+	free(array);
 }

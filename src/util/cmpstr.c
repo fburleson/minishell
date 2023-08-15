@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   cmpstr.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:31:18 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:31:23 by joel             ###   ########.fr       */
+/*   Created: 2023/08/10 13:44:55 by joel              #+#    #+#             */
+/*   Updated: 2023/08/10 13:49:19 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_exit(void)
+t_bool	cmpstr(char *str0, char *str1)
 {
-	printf("exit\n");
-	exit(SUCCESS);
+	return (!ft_strncmp(str0, str1, ft_max(ft_strlen(str0), ft_strlen(str1))));
 }

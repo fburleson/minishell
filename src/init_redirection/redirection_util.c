@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   redirection_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:31:18 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:31:23 by joel             ###   ########.fr       */
+/*   Created: 2023/08/11 17:13:37 by joel              #+#    #+#             */
+/*   Updated: 2023/08/11 17:14:47 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_exit(void)
+void	free_iofile(t_iofile *iofile)
 {
-	printf("exit\n");
-	exit(SUCCESS);
+	free(iofile->path);
+	free(iofile->limit_str);
+	free(iofile);
 }

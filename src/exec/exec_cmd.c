@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:31:18 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:31:23 by joel             ###   ########.fr       */
+/*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
+/*   Updated: 2023/08/12 14:40:49 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_exit(void)
+extern t_status	g_exit_status;
+
+void	exec_cmd(t_cmd *cmd, char **env)
 {
-	printf("exit\n");
-	exit(SUCCESS);
+	setup_redirect_out(cmd);
+	setup_redirect_in(cmd);
+	if (!is_builtin(cmd->args[0]))
+		g_exit_status = exec_program(cmd->args, env);
+	else
+		g_exit_status = exec_builtin(cmd->args, env);
+	reset_redirection(cmd);
 }

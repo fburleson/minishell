@@ -1,19 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   copy_strarray.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:31:18 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:31:23 by joel             ###   ########.fr       */
+/*   Created: 2023/08/10 09:34:45 by joel              #+#    #+#             */
+/*   Updated: 2023/08/10 09:47:27 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_exit(void)
+char	**copy_strarray(char **array)
 {
-	printf("exit\n");
-	exit(SUCCESS);
+	char			**copy;
+	unsigned int	cidx;
+
+	copy = (char **)malloc((strarraylen(array)) * sizeof(char *));
+	if (!copy)
+		return (NULL);
+	cidx = 0;
+	while (array[cidx])
+	{
+		copy[cidx] = ft_strdup(array[cidx]);
+		cidx++;
+	}
+	copy[cidx] = NULL;
+	return (copy);
 }
