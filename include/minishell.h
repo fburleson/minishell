@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 15:13:35 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
+/*   Updated: 2023/08/17 16:04:04 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,9 @@
 # define CMD_ECHO	"echo"
 # define CMD_ENV	"env"
 # define CMD_PWD	"pwd"
+# define CMD_CD		"cd"
+# define CMD_EXPORT	"export"
+# define CMD_UNSET	"unset"
 
 # define SUCCESS	0
 # define ERROR		1
@@ -71,6 +74,14 @@ typedef struct cmd
 	int			fstdin;
 	int			fredirectin;
 }						t_cmd;
+
+typedef struct s_envs
+{
+	char			*start;
+	char			*end;
+	char			*fullstr;
+	struct s_envs	*next;
+}	t_envs;
 
 //	PARSE
 
@@ -113,17 +124,21 @@ int				create_heredoc(t_iofile *file);
 
 //	BUILTINS
 
-t_status		cmd_echo(char **args);
 t_status		cmd_env(char **env);
-t_status		cmd_exit(void);
+t_status		cmd_echo(char **args);
 t_status		cmd_pwd(char **env);
-
+t_status		cmd_cd(char **argv, char **env);
+t_status		cmd_export(char **args, char **env, t_envs *env_list);
+t_envs			*list_init(char **env);
+void			free_env_list(t_envs *list);
+t_status		cmd_unset(char **args, t_envs *env_list);
+t_status		cmd_exit(void);
 // EXECUTION
 
-void			exec_cmd(t_cmd *cmd, char **env);
-t_status		exec_program(char **args, char **env);
-t_status		exec_builtin(char **args, char **env);
+void			exec_cmd(t_cmd *cmd, char **env, t_envs *env_list);
 
+t_status		exec_program(char **args, char **env);
+t_status		exec_builtin(char **args, char **env, t_envs *env_list);
 // EXECUTION UTILS
 
 char			*get_abs_path(char *path, char **env);

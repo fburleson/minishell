@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_builtin.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/12 14:37:36 by joel              #+#    #+#             */
-/*   Updated: 2023/08/15 19:22:00 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec_builtin.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/12 14:37:36 by joel          #+#    #+#                 */
+/*   Updated: 2023/08/17 15:57:17 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	exec_builtin(char **args, char **env)
+t_status	exec_builtin(char **args, char **env, t_envs *env_list)
 {
 	if (cmpstr(args[0], CMD_EXIT))
 		return (cmd_exit());
@@ -22,6 +22,12 @@ t_status	exec_builtin(char **args, char **env)
 		return (cmd_echo(args));
 	else if (cmpstr(args[0], CMD_PWD))
 		return (cmd_pwd(env));
+	else if (cmpstr(args[0], CMD_CD))
+		return (cmd_cd(args, env));
+	else if (cmpstr(args[0], CMD_EXPORT))
+		return (cmd_export(args, env, env_list));
+	else if (cmpstr(args[0], CMD_UNSET))
+		return (cmd_unset(args, env_list));
 	else
 		return (STATUS_CMD_NOT_FOUND);
 }

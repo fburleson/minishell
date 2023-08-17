@@ -1,6 +1,8 @@
 NAME			=	minishell
 CC				=	gcc
 CFLAGS			=	-Wall -Werror -Wextra -fsanitize=leak
+#CFLAGS      	= -Wall -Werror -Wextra -fsanitize=address -I$(HOME)/.brew/opt/readline/include
+#CFLAGS     	= -Wall -Werror -Wextra -I$(HOME)/.brew/opt/readline/include
 RM				=	rm -f
 
 SRCDIR			=	./src/
@@ -14,6 +16,8 @@ BUILTINSDIR		=	$(SRCDIR)builtins/
 BINDIR			=	./bin/
 HEADERDIR		=	./include/
 LIBDIR			=	./lib/
+LDFLAGS     	= -L$(HOME)/.brew/opt/readline/lib
+LDLIBS      	= -lreadline
 
 SRCFILES		=	minishell.c			\
 					parse.c				\
@@ -38,6 +42,9 @@ SRCFILES		=	minishell.c			\
 					env.c				\
 					exit.c				\
 					pwd.c				\
+					cd.c				\
+					export.c			\
+					unset.c				\
 					lstrlen.c			\
 					copy_strarray.c		\
 					strarraylen.c		\
@@ -54,6 +61,9 @@ BINPATHS		=	$(addprefix $(BINDIR), $(BINFILES))
 
 LIBFTNAME		=	libft.a
 LIBFTDIR		=	./libft/
+
+#$(NAME): $(LIBDIR)$(LIBFTNAME) $(BINPATHS)
+#	$(CC) $(CFLAGS) $(BINPATHS) $(LIBDIR)$(LIBFTNAME) $(LDFLAGS) $(LDLIBS) -o $(NAME)
 
 $(NAME):		$(LIBDIR)$(LIBFTNAME) $(BINPATHS)
 					$(CC) $(CFLAGS) $(BINPATHS) $(LIBDIR)$(LIBFTNAME) -lreadline -o $(NAME)
