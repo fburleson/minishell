@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 09:34:45 by joel              #+#    #+#             */
-/*   Updated: 2023/08/10 09:47:27 by joel             ###   ########.fr       */
+/*   Updated: 2023/08/18 16:30:50 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	**copy_strarray(char **array)
 	char			**copy;
 	unsigned int	cidx;
 
-	copy = (char **)malloc((strarraylen(array)) * sizeof(char *));
+	copy = (char **)malloc((strarraylen(array) + 1) * sizeof(char *));
 	if (!copy)
 		return (NULL);
 	cidx = 0;
