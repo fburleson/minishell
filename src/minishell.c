@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/09 15:52:42 by joel          #+#    #+#                 */
-/*   Updated: 2023/08/17 16:01:01 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
+/*   Updated: 2023/08/23 15:43:55 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int	main(int argc, char **argv, char **temp_env)
 	while (TRUE)
 	{
 		line = readline(SHELL_PROMPT);
-		if (!line)
-			return (ERROR);
-		if (*line == '\0')
+		if (*line == '\0' || ft_isempty(line))
 		{
 			free(line);
 			continue ;
 		}
+		else if (!line)
+			return (ERROR);
 		add_history(line);
 		args = parse(line, env);
 		cmds = init_cmds(args);
