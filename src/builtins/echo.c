@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/20 19:42:11 by joel              #+#    #+#             */
-/*   Updated: 2023/07/16 13:35:40 by joel             ###   ########.fr       */
+/*   Updated: 2023/08/23 15:35:10 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	print_qoutes(char *arg)
-{
-	unsigned int	cidx;
-
-	cidx = 1;
-	if (*arg == '\'')
-	{
-		while (arg[cidx] && arg[cidx] != '\'')
-		{
-			printf("%c", arg[cidx]);
-			cidx++;
-		}
-	}
-	if (*arg == '\"')
-	{
-		while (arg[cidx] && arg[cidx] != '\"')
-		{
-			printf("%c", arg[cidx]);
-			cidx++;
-		}
-	}
-}
 
 t_status	cmd_echo(char **args)
 {
@@ -48,10 +25,7 @@ t_status	cmd_echo(char **args)
 		cidx = 2;
 	while (args[cidx])
 	{
-		if (args[cidx][0] == '\'' || args[cidx][0] == '\"')
-			print_qoutes(args[cidx]);
-		else
-			printf("%s", args[cidx]);
+		printf("%s", args[cidx]);
 		cidx++;
 		if (args[cidx])
 			printf(" ");
