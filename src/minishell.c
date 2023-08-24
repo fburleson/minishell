@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/08/23 15:43:55 by fsarkoh          ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.c                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: fsarkoh <fsarkoh@student.42.fr>              +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/09 15:52:42 by joel          #+#    #+#                 */
+/*   Updated: 2023/08/24 15:15:22 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,10 @@ int	main(int argc, char **argv, char **temp_env)
 	while (TRUE)
 	{
 		line = readline(SHELL_PROMPT);
+		if (line == NULL)
+			printf("exit"); //deze 2 zijn voor CTRL D
+		if (line == NULL) // deze 2 zijn voor CTRL D
+			exit(SUCCESS);
 		if (*line == '\0' || ft_isempty(line))
 		{
 			free(line);
