@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:44:40 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 14:35:51 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/06 16:08:00 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ char	*get_abs_path(char *path, char **env)
 	while (env_paths[current_env_path])
 	{
 		current_dir = opendir(env_paths[current_env_path]);
+		if (!current_dir)
+		{
+			current_env_path++;
+			continue ;
+		}
 		if (dir_has_file(current_dir, path))
 		{
 			closedir(current_dir);
