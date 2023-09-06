@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 15:27:10 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 16:48:26 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/06 17:30:50 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ t_cmd	*init_cmd(char **args)
 	cmd = (t_cmd *)malloc(sizeof(t_cmd));
 	if (!cmd)
 		return (NULL);
+	cmd->raw_args = args;
 	cmd->args = cmd_args(args);
-	cmd->outfiles = init_outfiles(args);
-	cmd->infile = init_infile(args);
 	cmd->fstdout = -1;
 	cmd->fredirectout = -1;
 	cmd->fstdin = -1;

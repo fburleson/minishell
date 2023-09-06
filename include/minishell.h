@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
-/*   Updated: 2023/08/17 16:04:04 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
+/*   Updated: 2023/09/06 18:57:46 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ typedef struct iofile
 typedef struct cmd
 {
 	char		**args;
+	char		**raw_args;
 	t_iofile	**outfiles;
 	t_iofile	*infile;
 	int			fstdout;
@@ -81,7 +82,7 @@ typedef struct s_envs
 	char			*end;
 	char			*fullstr;
 	struct s_envs	*next;
-}	t_envs;
+}						t_envs;
 
 //	PARSE
 
@@ -114,9 +115,11 @@ t_iofile		*init_iofile(char **args);
 //	REDIRECTION UTILS
 
 void			free_iofile(t_iofile *iofile);
+t_iofile		*copy_iofile(t_iofile *iofile);
 
 //	REDIRECTION
 
+void			init_redirection(t_cmd **cmds);
 void			setup_redirect_out(t_cmd *cmd);
 void			setup_redirect_in(t_cmd *cmd);
 void			reset_redirection(t_cmd *cmd);
@@ -133,12 +136,13 @@ t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
 t_status		cmd_unset(char **args, t_envs *env_list);
 t_status		cmd_exit(void);
+
 // EXECUTION
 
-void			exec_cmd(t_cmd *cmd, char **env, t_envs *env_list);
-
+void			exec_pipe(t_cmd **cmds, char **env, t_envs *env_list);
 t_status		exec_program(char **args, char **env);
 t_status		exec_builtin(char **args, char **env, t_envs *env_list);
+
 // EXECUTION UTILS
 
 char			*get_abs_path(char *path, char **env);
@@ -149,6 +153,7 @@ t_bool			is_builtin(char *cmd);
 unsigned int	lstrlen(char *str, char *delimiters, unsigned int threshold);
 char			**copy_strarray(char **array);
 unsigned int	strarraylen(char **array);
+unsigned int	parraylen(char **array);
 void			free_strarray(char **array);
 void			print_strarray(char **array);
 char			*envvar(char *name, char **env);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: fsarkoh <fsarkoh@student.42.fr>              +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/09 15:52:42 by joel          #+#    #+#                 */
-/*   Updated: 2023/08/24 15:15:22 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
+/*   Updated: 2023/09/06 18:27:10 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ int	main(int argc, char **argv, char **temp_env)
 		add_history(line);
 		args = parse(line, env);
 		cmds = init_cmds(args);
-		exec_cmd(cmds[0], env, env_list);
-		if (g_exit_status == STATUS_CMD_NOT_FOUND)
-			printf("minishell:	command not found:	%s\n", cmds[0]->args[0]);
+		init_redirection(cmds);
+		exec_pipe(cmds, env, env_list);
 		free(line);
 		free_strarray(args);
 		free_cmds(cmds);

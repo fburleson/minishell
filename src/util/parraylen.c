@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection_util.c                                 :+:      :+:    :+:   */
+/*   parraylen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/11 17:13:37 by joel              #+#    #+#             */
-/*   Updated: 2023/09/06 18:55:57 by fsarkoh          ###   ########.fr       */
+/*   Created: 2023/09/06 18:10:35 by fsarkoh           #+#    #+#             */
+/*   Updated: 2023/09/06 18:12:04 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_iofile(t_iofile *iofile)
+unsigned int	parraylen(char **array)
 {
-	free(iofile->path);
-	free(iofile->limit_str);
-	free(iofile);
-}
+	unsigned int	cidx;
 
-t_iofile	*copy_iofile(t_iofile *iofile)
-{
-	t_iofile	*copy;
-
-	copy = (t_iofile *)malloc(sizeof(t_iofile));
-	if (!copy)
-		return (NULL);
-	copy->path = ft_strdup(iofile->path);
-	copy->mode = iofile->mode;
-	copy->limit_str = ft_strdup(iofile->path);
-	return (copy);
+	cidx = 0;
+	while (array[cidx])
+		cidx++;
+	return (cidx);
 }
