@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_redirection.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/09/06 19:04:24 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/07 09:34:59 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ static void	init_single(t_cmd *cmd)
 static char	*iofile_name(unsigned int idx)
 {
 	char	*c_idx;
+	char	*join;
 
 	c_idx = ft_itoa(idx);
+	join = ft_strjoin("/tmp/minishell_pipe_", c_idx);
 	free(c_idx);
-	return (ft_strjoin("/tmp/minishell_pipe_", c_idx));
+	return (join);
 }
 
 static t_iofile	*init_outfile(unsigned int idx)
