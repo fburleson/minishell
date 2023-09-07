@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:09:20 by joel              #+#    #+#             */
-/*   Updated: 2023/08/10 21:21:06 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/07 14:19:41 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static unsigned int	n_args(char **args)
 	n = 0;
 	cidx = 0;
 	while (args[cidx] && !cmpstr(args[cidx], "|"))
-	{	
+	{
 		skip = n_skip(args + cidx);
 		cidx += skip;
 		if (skip)
@@ -64,7 +64,7 @@ char	**cmd_args(char **args)
 	arg_idx = 0;
 	cidx = 0;
 	while (args[cidx] && !cmpstr(args[cidx], "|"))
-	{	
+	{
 		skip = n_skip(args + cidx);
 		cidx += skip;
 		if (skip)

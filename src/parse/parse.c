@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:09:07 by joel              #+#    #+#             */
-/*   Updated: 2023/08/12 15:08:56 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/07 14:19:52 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**parse(char *line, char **env)
 	while (line[cidx] == ' ')
 		cidx++;
 	while (line[cidx])
-	{	
+	{
 		delimiters = get_delimiters(line[cidx]);
 		parsed[current_arg] = parse_arg(line + cidx, delimiters, env);
 		cidx += offset_next_arg(line + cidx, delimiters);
