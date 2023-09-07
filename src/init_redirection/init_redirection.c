@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/09/07 09:34:59 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/07 10:32:28 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ static void	init_single(t_cmd *cmd)
 {
 	cmd->outfiles = init_outfiles(cmd->raw_args);
 	cmd->infile = init_infile(cmd->raw_args);
-}
-
-static char	*iofile_name(unsigned int idx)
-{
-	char	*c_idx;
-	char	*join;
-
-	c_idx = ft_itoa(idx);
-	join = ft_strjoin("/tmp/minishell_pipe_", c_idx);
-	free(c_idx);
-	return (join);
 }
 
 static t_iofile	*init_outfile(unsigned int idx)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/09/06 18:57:46 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:32:22 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,15 @@ typedef struct s_envs
 	struct s_envs	*next;
 }						t_envs;
 
+typedef struct shell
+{
+	char	*line;
+	char	**args;
+	char	**env;
+	t_envs	*env_list;
+	t_cmd	**cmds;
+}						t_shell;
+
 //	PARSE
 
 char			**parse(char *line, char **env);
@@ -116,6 +125,7 @@ t_iofile		*init_iofile(char **args);
 
 void			free_iofile(t_iofile *iofile);
 t_iofile		*copy_iofile(t_iofile *iofile);
+char			*iofile_name(unsigned int idx);
 
 //	REDIRECTION
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/09/06 18:27:10 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:32:25 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,45 +28,52 @@ void	signalhandler(int signum)
 		exit(SUCCESS);
 }
 
-int	main(int argc, char **argv, char **temp_env)
+static void	init_shell(t_shell *shell, char **env)
 {
-	char	*line;
-	char	**args;
-	char	**env;
-	t_cmd	**cmds;
-	t_envs	*env_list;
+	shell->env = copy_strarray(env);
+	shell->env_list = list_init(shell->env);
+}
+
+static void	clean_shell(t_shell *shell)
+{
+	free(shell->line);
+	free_strarray(shell->args);
+	free_cmds(shell->cmds);
+}
+
+static void	process_line(t_shell *shell)
+{
+	add_history(shell->line);
+	shell->args = parse(shell->line, shell->env);
+	shell->cmds = init_cmds(shell->args);
+	init_redirection(shell->cmds);
+}
+
+int	main(int argc, char **argv, char **env)
+{
+	t_shell	shell;
 
 	printf("%i%s\n", argc, argv[0]);
 	signal(SIGINT, &signalhandler);
 	signal(SIGQUIT, &signalhandler);
-	env = copy_strarray(temp_env);
-	env_list = list_init(env);
-	if (!env)
+	init_shell(&shell, env);
+	if (!shell.env)
 		return (ERROR);
 	while (TRUE)
 	{
-		line = readline(SHELL_PROMPT);
-		if (line == NULL)
-			printf("exit"); //deze 2 zijn voor CTRL D
-		if (line == NULL) // deze 2 zijn voor CTRL D
-			exit(SUCCESS);
-		if (*line == '\0' || ft_isempty(line))
+		shell.line = readline(SHELL_PROMPT);
+		if (!shell.line)
+			cmd_exit();
+		if (*shell.line == '\0' || ft_isempty(shell.line))
 		{
-			free(line);
+			free(shell.line);
 			continue ;
 		}
-		else if (!line)
-			return (ERROR);
-		add_history(line);
-		args = parse(line, env);
-		cmds = init_cmds(args);
-		init_redirection(cmds);
-		exec_pipe(cmds, env, env_list);
-		free(line);
-		free_strarray(args);
-		free_cmds(cmds);
+		process_line(&shell);
+		exec_pipe(shell.cmds, shell.env, shell.env_list);
+		clean_shell(&shell);
 	}
-	free_strarray(env);
-	free_env_list(env_list);
+	free_strarray(shell.env);
+	free_env_list(shell.env_list);
 	return (SUCCESS);
 }

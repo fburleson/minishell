@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:44:40 by joel              #+#    #+#             */
-/*   Updated: 2023/09/06 16:08:00 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/07 10:53:39 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,19 +70,15 @@ char	*get_abs_path(char *path, char **env)
 	while (env_paths[current_env_path])
 	{
 		current_dir = opendir(env_paths[current_env_path]);
-		if (!current_dir)
-		{
-			current_env_path++;
-			continue ;
-		}
-		if (dir_has_file(current_dir, path))
+		if (dir_has_file(current_dir, path) && current_dir)
 		{
 			closedir(current_dir);
 			abs_path = join_paths(env_paths[current_env_path], path);
 			free_strarray(env_paths);
 			return (abs_path);
 		}
-		closedir(current_dir);
+		if (current_dir)
+			closedir(current_dir);
 		current_env_path++;
 	}
 	free_strarray(env_paths);
