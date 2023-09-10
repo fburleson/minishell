@@ -6,13 +6,13 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 15:30:23 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/09/10 20:18:48 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/10 20:44:20 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_node_add(char *str, t_envs **env_list)
+void	handle_node_add(char *str, t_envs **env_list)
 {
 	t_envs	*current;
 	char	*env_copy;
@@ -20,8 +20,8 @@ static void	handle_node_add(char *str, t_envs **env_list)
 	char	*end;
 	char	*equal_sign;
 
-	env_copy = strdup(str);
-	equal_sign = strchr(env_copy, '=');
+	env_copy = ft_strdup(str);
+	equal_sign = ft_strchr(env_copy, '=');
 	if (!equal_sign)
 		return ;
 	*equal_sign = '\0';
@@ -46,7 +46,7 @@ static t_envs	*create_env_list(char *env_copy, char *fullstr)
 	char	*end;
 	char	*equal_sign;
 
-	equal_sign = strchr(env_copy, '=');
+	equal_sign = ft_strchr(env_copy, '=');
 	*equal_sign = '\0';
 	start = env_copy;
 	end = equal_sign + 1;
@@ -59,7 +59,7 @@ static void	add_to_list(t_envs **head, t_envs **tail, char *str)
 	t_envs	*env_list;
 	char	*env_copy;
 
-	env_copy = strdup(str);
+	env_copy = ft_strdup(str);
 	env_list = create_env_list(env_copy, str);
 	if (*head == NULL)
 	{
@@ -94,27 +94,27 @@ t_envs	*list_init(char **env)
 t_status	cmd_export(char **args, char **env, t_envs *env_list)
 {
 	t_envs	*current;
-	char	*magic;
-	int		i;
+	char	*prefix;
 
 	if (!env || (!args[1] || args[1][0] == '\0'))
 	{
 		print_list(env_list);
 		return (0);
 	}
-	magic = ft_strdup(args[1]);
-	i = -1;
-	while (magic[++i])
-		if (magic[i] == '=')
-			magic[i] = '\0';
+	prefix = get_prefix(args[1]);
+	if (!prefix)
+	{
+		node_add(args[1], env_list);
+		return (0);
+	}
 	current = env_list;
 	while (current)
 	{
-		if (!ft_strncmp(current->start, magic, ft_strlen(magic)))
-			ft_strlcpy(current->end, "heythisislong", 13);
+		if (!ft_strncmp(current->start, prefix, ft_strlen(prefix)))
+			delete_node(&env_list, prefix);
 		current = current->next;
 	}
-	if (i != -1 && args[1])
-		node_add(args[1], env_list);
+	node_add(args[1], env_list);
+	free(prefix);
 	return (0);
 }
