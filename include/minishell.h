@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/09/07 10:32:22 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
+/*   Updated: 2023/09/10 20:14:40 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,13 @@ t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
 t_status		cmd_unset(char **args, t_envs *env_list);
 t_status		cmd_exit(void);
+
+// EXPORT2 BUILTINS
+
+t_envs			*create_node(char *s, char *e, char *f);
+void			print_list(t_envs *list_env);
+void			free_env_list(t_envs *list);
+void			node_add(char *str, t_envs *env_list2);
 
 // EXECUTION
 
