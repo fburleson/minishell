@@ -6,7 +6,7 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 15:30:23 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/09/10 20:45:47 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/10 20:48:32 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ t_envs	*create_node(char *s, char *e, char *f)
 	node = malloc(sizeof(t_envs));
 	if (!node)
 		exit(EXIT_FAILURE);
-	node->start = strdup(s);
-	node->end = strdup(e);
-	node->fullstr = strdup(f);
+	node->start = ft_strdup(s);
+	node->end = ft_strdup(e);
+	node->fullstr = ft_strdup(f);
 	node->next = NULL;
 	return (node);
 }
