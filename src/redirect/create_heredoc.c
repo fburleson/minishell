@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:36:38 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 18:06:10 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/14 11:53:30 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	create_heredoc(t_iofile *file)
 	int		heredoc;
 	char	*tmpfile_path;
 
-	tmpfile_path = "/tmp/minishell_heredoc";
+	tmpfile_path = "/tmp/.minishell_heredoc";
 	heredoc = open(tmpfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (heredoc == -1)
 		return (-1);

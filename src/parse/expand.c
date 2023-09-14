@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 11:00:29 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 14:09:24 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/14 12:57:13 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*expand_copy_arg(char *line, char *limiters, char **env)
 		{
 			copy_idx += insert_envvar(line + cidx, copy + copy_idx, env);
 			cidx++;
-			while (line[cidx] != ' ')
+			while (line[cidx] && line[cidx] != ' ')
 				cidx++;
 			continue ;
 		}
