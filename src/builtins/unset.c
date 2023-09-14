@@ -6,7 +6,7 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 15:30:25 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/08/15 10:58:48 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:06:34 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void	delete_node(t_envs **head, const char *start_to_delete)
 {
 	t_envs	*current;
 	t_envs	*prev;
+	size_t	len;
 
 	current = *head;
 	prev = NULL;
+	len = ft_strlen(start_to_delete);
 	while (current != NULL)
 	{
-		if (strcmp(current->start, start_to_delete) == 0)
+		if (ft_strncmp(current->start, start_to_delete, len) == 0)
 		{
 			if (prev != NULL)
 				prev->next = current->next;

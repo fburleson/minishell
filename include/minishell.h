@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
-/*   Updated: 2023/09/10 20:43:33 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/14 19:07:27 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,25 +137,29 @@ int				create_heredoc(t_iofile *file);
 
 //	BUILTINS
 
-t_status		cmd_env(char **env);
+t_status		cmd_env(t_envs *env_list);
 t_status		cmd_echo(char **args);
-t_status		cmd_pwd(char **env);
-t_status		cmd_cd(char **argv, char **env);
+t_status		cmd_pwd(t_envs *env_list);
+t_status		cmd_cd(char **argv, char **env, t_envs *env_list);
 t_status		cmd_export(char **args, char **env, t_envs *env_list);
 t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
 t_status		cmd_unset(char **args, t_envs *env_list);
 t_status		cmd_exit(void);
 
-// EXPORT2 BUILTINS
+// EXPORT2/CD2 BUILTINS
 
 t_envs			*create_node(char *s, char *e, char *f);
 void			print_list(t_envs *list_env);
 void			free_env_list(t_envs *list);
-void			node_add(char *str, t_envs *env_list2);
+int				args_null_or_empty(char **args, char **env, t_envs *env_list);
 void			delete_node(t_envs **head, const char *start_to_delete);
 void			handle_node_add(char *str, t_envs **env_list);
 char			*get_prefix(const char *str);
+char			*get_absolute_path(char *path);
+t_envs			*find_in_env_list(t_envs *env_list, const char *key);
+void			updatelistentry(t_envs *entry, const char *new_end);
+char			*expand_tilde_path(char *path, char *home);
 
 // EXECUTION
 

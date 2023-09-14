@@ -1,6 +1,6 @@
 /* ************************************************************************** */
-/*																			*/
-/*													    ::::::::            */
+/*																			  */
+/*													    ::::::::              */
 /*   cd.c                                               :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
@@ -38,22 +38,16 @@ int	shortenlines(char **env, char *oldorcurrent, int sevenorfour)
 	i = 0;
 	while (env[i])
 	{
-		if (strncmp(env[i], oldorcurrent, sevenorfour) == 0)
+		if (ft_strncmp(env[i], oldorcurrent, sevenorfour) == 0)
 			return (i);
 		i++;
 	}
 	return (-1);
 }
 
-void	change_directory(char *path, char **env)
+void	change_to_directory(char *path, char **env, int oldpwd_in)
 {
-	int		pwd_in;
-	int		oldpwd_in;
-	char	temp[4096];
-
-	pwd_in = shortenlines(env, "PWD=", 4);
-	oldpwd_in = shortenlines(env, "OLDPWD=", 7);
-	if (!path || path[0] == '~' || path[0] == '\0')
+	if (!path || path[0] == '\0')
 	{
 		path = getenv("HOME");
 		chdir(path);
@@ -67,15 +61,35 @@ void	change_directory(char *path, char **env)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", path);
 	}
+}
+
+void	change_directory(char *path, char **env)
+{
+	int		pwd_in;
+	int		oldpwd_in;
+	char	temp[4096];
+	char	*expanded_path;
+	char	*home;
+
+	pwd_in = shortenlines(env, "PWD=", 4);
+	oldpwd_in = shortenlines(env, "OLDPWD=", 7);
+	expanded_path = NULL;
+	home = getenv("HOME");
+	expanded_path = expand_tilde_path(path, home);
+	change_to_directory(expanded_path, env, oldpwd_in);
 	if (oldpwd_in != -1)
 		env[oldpwd_in] = ft_strreplace(env[oldpwd_in], 7, env[pwd_in] + 4, 0);
 	getcwd(temp, sizeof(temp));
 	env[pwd_in] = ft_strreplace(env[pwd_in], 4, temp, 0);
+	if (expanded_path != path && expanded_path != home)
+		free(expanded_path);
 }
 
-t_status	cmd_cd(char **args, char **env)
+t_status	cmd_cd(char **args, char **env, t_envs *env_list)
 {
 	char	*path;
+	t_envs	*pwd_entry;
+	t_envs	*oldpwd_entry;
 
 	if (!env || !getenv("HOME"))
 	{
@@ -84,5 +98,11 @@ t_status	cmd_cd(char **args, char **env)
 	}
 	path = args[1];
 	change_directory(path, env);
+	pwd_entry = find_in_env_list(env_list, "PWD");
+	if (pwd_entry)
+		updatelistentry(pwd_entry, &env[shortenlines(env, "PWD=", 4)][4]);
+	oldpwd_entry = find_in_env_list(env_list, "OLDPWD");
+	if (oldpwd_entry)
+		updatelistentry(oldpwd_entry, &env[shortenlines(env, "OLDPWD=", 7)][7]);
 	return (SUCCESS);
 }

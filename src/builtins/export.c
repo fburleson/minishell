@@ -6,7 +6,7 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 15:30:23 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/09/10 20:44:20 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/14 18:00:46 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,27 +94,26 @@ t_envs	*list_init(char **env)
 t_status	cmd_export(char **args, char **env, t_envs *env_list)
 {
 	t_envs	*current;
+	t_envs	*next;
 	char	*prefix;
 
-	if (!env || (!args[1] || args[1][0] == '\0'))
-	{
-		print_list(env_list);
+	if (args_null_or_empty(args, env, env_list) == 1)
 		return (0);
-	}
 	prefix = get_prefix(args[1]);
 	if (!prefix)
 	{
-		node_add(args[1], env_list);
+		handle_node_add(args[1], &env_list);
 		return (0);
 	}
 	current = env_list;
 	while (current)
 	{
+		next = current->next;
 		if (!ft_strncmp(current->start, prefix, ft_strlen(prefix)))
 			delete_node(&env_list, prefix);
-		current = current->next;
+		current = next;
 	}
-	node_add(args[1], env_list);
+	handle_node_add(args[1], &env_list);
 	free(prefix);
 	return (0);
 }

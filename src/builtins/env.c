@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/20 14:28:36 by joel              #+#    #+#             */
-/*   Updated: 2023/07/11 13:12:16 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   env.c                                              :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/06/20 14:28:36 by joel          #+#    #+#                 */
+/*   Updated: 2023/09/14 17:18:43 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_status	cmd_env(char **env)
+t_status	cmd_env(t_envs *env_list)
 {
-	unsigned int	cidx;
+	t_envs	*current;
 
-	cidx = 0;
-	while (env[cidx])
+	current = env_list;
+	while (current != NULL)
 	{
-		printf("%s\n", env[cidx]);
-		cidx++;
+		if (current->fullstr)
+			printf("%s\n", current->fullstr);
+		current = current->next;
 	}
 	return (SUCCESS);
 }

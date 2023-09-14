@@ -6,16 +6,11 @@
 /*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/07/18 15:30:23 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/09/10 20:48:32 by kaltevog      ########   odam.nl         */
+/*   Updated: 2023/09/14 17:58:36 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	node_add(char *str, t_envs *env_list2)
-{
-	handle_node_add(str, &env_list2);
-}
 
 void	free_env_list(t_envs *list)
 {
@@ -39,6 +34,16 @@ void	print_list(t_envs *list_env)
 		printf("declare -x %s=\"%s\"\n", list_env->start, list_env->end);
 		list_env = list_env->next;
 	}
+}
+
+int	args_null_or_empty(char **args, char **env, t_envs *env_list)
+{
+	if (!env || (!args[1] || args[1][0] == '\0'))
+	{
+		print_list(env_list);
+		return (ERROR);
+	}
+	return (SUCCESS);
 }
 
 t_envs	*create_node(char *s, char *e, char *f)
