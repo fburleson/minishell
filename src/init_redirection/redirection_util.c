@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:13:37 by joel              #+#    #+#             */
-/*   Updated: 2023/09/07 10:32:07 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/14 11:54:16 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*iofile_name(unsigned int idx)
 	char	*join;
 
 	c_idx = ft_itoa(idx);
-	join = ft_strjoin("/tmp/minishell_pipe_", c_idx);
+	join = ft_strjoin("/tmp/.minishell_pipe_", c_idx);
 	free(c_idx);
 	return (join);
 }
