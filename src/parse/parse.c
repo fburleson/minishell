@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:09:07 by joel              #+#    #+#             */
-/*   Updated: 2023/09/07 14:19:52 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/16 21:25:34 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 static unsigned int	offset_next_arg(char *line, char *delimiters)
 {
+	char	end;
+
 	if (ft_strnchr("\'\"", *line))
-		return (lstrlen(line, delimiters, 1) + 1);
+	{
+		end = *((line + 1) + lstrlen(line + 1, delimiters, 0));
+		if (ft_strnchr("\'\"", end))
+			return (lstrlen(line, delimiters, 1) + 1);
+		return (lstrlen(line, delimiters, 1));
+	}
 	else
 		return (lstrlen(line, delimiters, 0));
 }
