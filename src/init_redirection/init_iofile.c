@@ -6,21 +6,27 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:00:12 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 17:39:50 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/16 20:33:38 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*path(char **args, t_iomode mode)
-{
+{	
+	if (!args[1])
+		return (ft_strdup(""));
 	if (mode != HEREDOC_MODE)
 		return (ft_strdup(args[1]));
+	if (!args[2])
+		return (ft_strdup(""));
 	return (ft_strdup(args[2]));
 }
 
 char	*limit_str(char **args, t_iomode mode)
 {
+	if (!args[1])
+		return (ft_strdup(""));
 	if (mode == HEREDOC_MODE)
 		return (ft_strdup(args[1]));
 	return (ft_strdup(""));

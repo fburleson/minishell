@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/09/06 17:33:00 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/16 20:30:43 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ extern t_status	g_exit_status;
 
 static void	exec_cmd(t_cmd *cmd, char **env, t_envs *env_list)
 {
+	if (!cmd->args[0])
+		return ;
 	setup_redirect_out(cmd);
 	setup_redirect_in(cmd);
 	if (!is_builtin(cmd->args[0]))
