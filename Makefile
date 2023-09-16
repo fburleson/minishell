@@ -40,7 +40,9 @@ SRCFILES		=	minishell.c			\
 					exit.c				\
 					pwd.c				\
 					cd.c				\
+					cd2.c				\
 					export.c			\
+					export2.c			\
 					unset.c				\
 					lstrlen.c			\
 					copy_strarray.c		\
