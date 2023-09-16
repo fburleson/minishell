@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/09/07 10:32:28 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/16 20:39:57 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	init_pipe(t_cmd **cmds)
 {
 	unsigned int	cidx;
 
+	if (!cmds[0])
+		return ;
 	cmds[0]->infile = init_infile(cmds[0]->raw_args);
 	cmds[0]->outfiles = create_pipefile(0);
 	cidx = 1;
