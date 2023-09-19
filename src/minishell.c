@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/09/07 10:32:25 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/19 14:53:13 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	signalhandler(int signum)
 
 static void	init_shell(t_shell *shell, char **env)
 {
+	signal(SIGINT, &signalhandler);
+	signal(SIGQUIT, &signalhandler);
 	shell->env = copy_strarray(env);
 	shell->env_list = list_init(shell->env);
 }
@@ -53,9 +55,8 @@ int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
 
-	printf("%i%s\n", argc, argv[0]);
-	signal(SIGINT, &signalhandler);
-	signal(SIGQUIT, &signalhandler);
+	if (argc > 1)
+		printf("%s doesn't require any arguments\n", argv[0]);
 	init_shell(&shell, env);
 	if (!shell.env)
 		return (ERROR);
