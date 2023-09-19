@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/09/16 20:30:43 by joel             ###   ########.fr       */
+/*   Updated: 2023/09/19 15:05:53 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 extern t_status	g_exit_status;
+
+static void	print_errnofound(char *cmd)
+{
+	int	tmp_stdout;
+
+	tmp_stdout = dup(STDOUT_FILENO);
+	dup2(STDERR_FILENO, STDOUT_FILENO);
+	printf("minishell:	command not found:	%s\n", cmd);
+	dup2(tmp_stdout, STDOUT_FILENO);
+	close(tmp_stdout);
+}
 
 static void	exec_cmd(t_cmd *cmd, char **env, t_envs *env_list)
 {
@@ -25,7 +36,8 @@ static void	exec_cmd(t_cmd *cmd, char **env, t_envs *env_list)
 	else
 		g_exit_status = exec_builtin(cmd->args, env, env_list);
 	if (g_exit_status == STATUS_CMD_NOT_FOUND)
-		printf("minishell:	command not found:	%s\n", cmd->args[0]);
+		print_errnofound(cmd->args[0]);
+		// printf("minishell:	command not found:	%s\n", cmd->args[0]);
 	reset_redirection(cmd);
 }
 
