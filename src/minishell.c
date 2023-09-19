@@ -6,7 +6,7 @@
 /*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/09/19 14:53:13 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/09/19 15:46:28 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,6 @@ static void	init_shell(t_shell *shell, char **env)
 	shell->env_list = list_init(shell->env);
 }
 
-static void	clean_shell(t_shell *shell)
-{
-	free(shell->line);
-	free_strarray(shell->args);
-	free_cmds(shell->cmds);
-}
-
 static void	process_line(t_shell *shell)
 {
 	add_history(shell->line);
@@ -62,7 +55,8 @@ int	main(int argc, char **argv, char **env)
 		return (ERROR);
 	while (TRUE)
 	{
-		shell.line = readline(SHELL_PROMPT);
+		write(STDERR_FILENO, SHELL_PROMPT, ft_strlen(SHELL_PROMPT));
+		shell.line = readline("");
 		if (!shell.line)
 			cmd_exit();
 		if (*shell.line == '\0' || ft_isempty(shell.line))
@@ -72,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 		}
 		process_line(&shell);
 		exec_pipe(shell.cmds, shell.env, shell.env_list);
-		clean_shell(&shell);
+		free_shell(&shell);
 	}
 	free_strarray(shell.env);
 	free_env_list(shell.env_list);

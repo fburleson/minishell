@@ -53,6 +53,7 @@ SRCFILES		=	minishell.c			\
 					envvar.c			\
 					cmpstr.c			\
 					excludechars.c		\
+					free_shell.c		\
 
 BINFILES		=	$(notdir $(SRCFILES:.c=.o))
 

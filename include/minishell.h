@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   minishell.h                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
-/*   Updated: 2023/09/14 19:07:27 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
+/*   Updated: 2023/09/19 15:09:13 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,4 +183,5 @@ void			print_strarray(char **array);
 char			*envvar(char *name, char **env);
 t_bool			cmpstr(char *str0, char *str1);
 char			*excludechars(char *exclude);
+void			free_shell(t_shell *shell);
 #endif
