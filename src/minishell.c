@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/09/19 15:46:28 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/10/02 17:00:00 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ int	main(int argc, char **argv, char **env)
 		return (ERROR);
 	while (TRUE)
 	{
-		write(STDERR_FILENO, SHELL_PROMPT, ft_strlen(SHELL_PROMPT));
-		shell.line = readline("");
+		// write(STDERR_FILENO, SHELL_PROMPT, ft_strlen(SHELL_PROMPT));
+		shell.line = readline(SHELL_PROMPT);
 		if (!shell.line)
 			cmd_exit();
 		if (*shell.line == '\0' || ft_isempty(shell.line))
