@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   init_iofile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:00:12 by joel              #+#    #+#             */
-/*   Updated: 2023/09/16 20:33:38 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/02 14:14:49 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 char	*path(char **args, t_iomode mode)
-{	
+{
 	if (!args[1])
 		return (ft_strdup(""));
 	if (mode != HEREDOC_MODE)
