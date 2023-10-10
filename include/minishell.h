@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/09/19 15:09:13 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/10/10 17:11:55 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,4 +184,5 @@ char			*envvar(char *name, char **env);
 t_bool			cmpstr(char *str0, char *str1);
 char			*excludechars(char *exclude);
 void			free_shell(t_shell *shell);
+void			print_err(char *message, char *info);
 #endif

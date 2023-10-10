@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:50:42 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 17:39:25 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/10 17:04:08 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	open_outfile(t_iofile *file)
 {
+	int	fd;
 	int	flags;
 
 	flags = O_WRONLY | O_CREAT;
@@ -21,14 +22,22 @@ static int	open_outfile(t_iofile *file)
 		flags |= O_APPEND;
 	else
 		flags |= O_TRUNC;
-	return (open(file->path, flags, 0644));
+	fd = open(file->path, flags, 0644);
+	if (fd == -1)
+		print_err("file could not be opened: ", file->path);
+	return (fd);
 }
 
 static int	open_infile(t_iofile *file)
 {
+	int	fd;
+
 	if (file->mode == HEREDOC_MODE)
 		return (create_heredoc(file));
-	return (open(file->path, O_RDONLY));
+	fd = open(file->path, O_RDONLY);
+	if (fd == -1)
+		print_err("file could not be opened: ", file->path);
+	return (fd);
 }
 
 void	setup_redirect_in(t_cmd *cmd)

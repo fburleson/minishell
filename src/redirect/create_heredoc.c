@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_heredoc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:36:38 by joel              #+#    #+#             */
-/*   Updated: 2023/09/14 11:53:30 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/10/10 17:09:51 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ static void	copy_to_heredoc(t_iofile *file, int heredoc)
 
 	src = open(file->path, O_RDONLY);
 	if (src == -1)
+	{
+		print_err("file could not be opened: ", file->path);
 		return ;
+	}
 	line = get_next_line(src);
 	while (line && !is_line_limit(line, file->limit_str))
 	{
@@ -64,8 +67,14 @@ int	create_heredoc(t_iofile *file)
 	tmpfile_path = "/tmp/.minishell_heredoc";
 	heredoc = open(tmpfile_path, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (heredoc == -1)
+	{
+		print_err("file could not be opened: ", tmpfile_path);
 		return (-1);
+	}
 	copy_to_heredoc(file, heredoc);
 	close(heredoc);
-	return (open(tmpfile_path, O_RDONLY));
+	heredoc = open(tmpfile_path, O_RDONLY);
+	if (heredoc == -1)
+		print_err("file could not be opened: ", tmpfile_path);
+	return (heredoc);
 }
