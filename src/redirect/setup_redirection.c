@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:50:42 by joel              #+#    #+#             */
-/*   Updated: 2023/10/10 17:04:08 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/10 17:34:08 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ static int	open_outfile(t_iofile *file)
 		flags |= O_APPEND;
 	else
 		flags |= O_TRUNC;
-	fd = open(file->path, flags, 0644);
-	if (fd == -1)
-		print_err("file could not be opened: ", file->path);
+	fd = ft_mopen(file->path, flags, 0644);
 	return (fd);
 }
 
@@ -34,9 +32,7 @@ static int	open_infile(t_iofile *file)
 
 	if (file->mode == HEREDOC_MODE)
 		return (create_heredoc(file));
-	fd = open(file->path, O_RDONLY);
-	if (fd == -1)
-		print_err("file could not be opened: ", file->path);
+	fd = ft_open(file->path, O_RDONLY);
 	return (fd);
 }
 

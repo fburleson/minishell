@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/10/10 17:11:55 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/10 17:35:08 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,4 +185,6 @@ t_bool			cmpstr(char *str0, char *str1);
 char			*excludechars(char *exclude);
 void			free_shell(t_shell *shell);
 void			print_err(char *message, char *info);
+int				ft_open(char *file_name, int flags);
+int				ft_mopen(char *file_name, int flags, int permissions);
 #endif
