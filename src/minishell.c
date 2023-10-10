@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/10/02 17:00:00 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/10 16:15:50 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void	init_shell(t_shell *shell, char **env)
 {
 	signal(SIGINT, &signalhandler);
 	signal(SIGQUIT, &signalhandler);
+	signal(SIGQUIT, SIG_IGN);
 	shell->env = copy_strarray(env);
 	shell->env_list = list_init(shell->env);
 }
@@ -55,7 +56,6 @@ int	main(int argc, char **argv, char **env)
 		return (ERROR);
 	while (TRUE)
 	{
-		// write(STDERR_FILENO, SHELL_PROMPT, ft_strlen(SHELL_PROMPT));
 		shell.line = readline(SHELL_PROMPT);
 		if (!shell.line)
 			cmd_exit();
