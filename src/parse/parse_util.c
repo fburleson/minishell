@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 10:21:32 by joel              #+#    #+#             */
-/*   Updated: 2023/08/11 13:52:16 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/10 16:42:17 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ static unsigned int	envvar_namelen(char *line)
 	unsigned int	cidx;
 
 	cidx = 1;
-	if (cmpstr(line + cidx, "?"))
-		return (1);
-	while (ft_isalnum(line[cidx]))
+	while (ft_isalnum(line[cidx]) || line[cidx] == '?')
 		cidx++;
 	return (cidx - 1);
 }
