@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/10/10 17:01:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/13 20:55:12 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ static void	exec_cmd(t_cmd *cmd, char **env, t_envs *env_list)
 {
 	if (!cmd->args[0])
 		return ;
-	setup_redirect_out(cmd);
 	setup_redirect_in(cmd);
+	setup_redirect_out(cmd);
 	if (!is_builtin(cmd->args[0]))
 		g_exit_status = exec_program(cmd->args, env);
 	else
