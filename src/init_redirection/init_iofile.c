@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_iofile.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:00:12 by joel              #+#    #+#             */
-/*   Updated: 2023/10/02 14:14:49 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/10/13 15:41:21 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,9 @@ char	*path(char **args, t_iomode mode)
 {
 	if (!args[1])
 		return (ft_strdup(""));
-	if (mode != HEREDOC_MODE)
-		return (ft_strdup(args[1]));
-	if (!args[2])
-		return (ft_strdup(""));
-	return (ft_strdup(args[2]));
+	if (mode == HEREDOC_MODE)
+		return (ft_strdup(HEREDOC_PATH));
+	return (ft_strdup(args[1]));
 }
 
 char	*limit_str(char **args, t_iomode mode)

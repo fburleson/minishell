@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_args.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:09:20 by joel              #+#    #+#             */
-/*   Updated: 2023/09/07 14:19:41 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/10/11 18:37:15 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,9 @@ static unsigned int	n_skip(char **args)
 
 	cidx = 0;
 	if (cmpstr(args[cidx], ">>") || cmpstr(args[cidx], ">")
-		|| cmpstr(args[cidx], "<"))
+		|| cmpstr(args[cidx], "<") || cmpstr(args[cidx], "<<"))
 	{
 		while (args[cidx] && !cmpstr(args[cidx], "|") && cidx < 2)
-			cidx++;
-	}
-	else if (cmpstr(args[cidx], "<<"))
-	{
-		while (args[cidx] && !cmpstr(args[cidx], "|") && cidx < 3)
 			cidx++;
 	}
 	return (cidx);

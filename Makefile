@@ -28,7 +28,7 @@ SRCFILES		=	minishell.c			\
 					init_infile.c		\
 					init_iofile.c		\
 					init_redirection.c	\
-					create_heredoc.c	\
+					heredoc.c			\
 					setup_redirection.c	\
 					redirection_util.c	\
 					exec_program.c		\

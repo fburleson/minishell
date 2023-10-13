@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/10/10 17:35:08 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/13 16:05:47 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define CMD_CD		"cd"
 # define CMD_EXPORT	"export"
 # define CMD_UNSET	"unset"
+
+# define HEREDOC_PATH	".minishell_heredoc"
 
 # define SUCCESS	0
 # define ERROR		1
@@ -134,6 +136,7 @@ void			setup_redirect_out(t_cmd *cmd);
 void			setup_redirect_in(t_cmd *cmd);
 void			reset_redirection(t_cmd *cmd);
 int				create_heredoc(t_iofile *file);
+void			write_to_heredoc(t_iofile *infile);
 
 //	BUILTINS
 

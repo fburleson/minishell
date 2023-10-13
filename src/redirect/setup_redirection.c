@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 15:50:42 by joel              #+#    #+#             */
-/*   Updated: 2023/10/11 16:07:44 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/13 16:05:54 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	open_outfile(t_iofile *file)
 		flags |= O_APPEND;
 	else
 		flags |= O_TRUNC;
-	fd = ft_mopen(file->path, flags, 0644);
+	fd = ft_open(file->path, flags);
 	if (fd == -1)
 		print_err("writing to STDOUT instead of: ", file->path);
 	return (fd);
@@ -32,8 +32,6 @@ static int	open_infile(t_iofile *file)
 {
 	int	fd;
 
-	if (file->mode == HEREDOC_MODE)
-		return (create_heredoc(file));
 	fd = ft_open(file->path, O_RDONLY);
 	if (fd == -1)
 		print_err("reading from STDIN instead of: ", file->path);
@@ -45,7 +43,11 @@ void	setup_redirect_in(t_cmd *cmd)
 	if (!cmd->infile)
 		return ;
 	cmd->fstdin = dup(STDIN_FILENO);
+	if (cmd->infile->mode == HEREDOC_MODE)
+		write_to_heredoc(cmd->infile);
 	cmd->fredirectin = open_infile(cmd->infile);
+	if (cmd->fredirectin == -1)
+		return ;
 	dup2(cmd->fredirectin, STDIN_FILENO);
 }
 
