@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:27:14 by joel              #+#    #+#             */
-/*   Updated: 2023/10/13 16:25:53 by joel             ###   ########.fr       */
+/*   Updated: 2023/10/13 20:43:31 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_bool	is_delimiter(char *line, char *delimiter)
 	char			*copy;
 	unsigned int	cidx;
 
-	copy = (char *)malloc((lstrlen(line, "\n", 0)) * sizeof(char));
+	copy = (char *)malloc((lstrlen(line, "\n", 0) + 1) * sizeof(char));
 	if (!copy)
 		return (TRUE);
 	cidx = 0;
@@ -50,6 +50,7 @@ static t_bool	is_delimiter(char *line, char *delimiter)
 		copy[cidx] = line[cidx];
 		cidx++;
 	}
+	copy[cidx] = '\0';
 	is_delimiter = cmpstr(copy, delimiter);
 	free(copy);
 	return (is_delimiter);
