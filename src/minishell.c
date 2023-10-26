@@ -9,7 +9,6 @@
 /*   Updated: 2023/10/10 16:15:50 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "minishell.h"
 
 t_status	g_exit_status = 0;
@@ -19,12 +18,10 @@ void	signalhandler(int signum)
 	if (signum == SIGINT)
 	{
 		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		rl_done = 1;
 		g_exit_status = STATUS_NEW_PROMPT;
 	}
-	if (signum == SIGQUIT)
+	else if (signum == SIGQUIT)
 		exit(SUCCESS);
 }
 
@@ -45,6 +42,28 @@ static void	process_line(t_shell *shell)
 	init_redirection(shell->cmds);
 }
 
+static void	loop_helper(t_shell *shell)
+{
+	if (g_exit_status != STATUS_NEW_PROMPT)
+	{
+		shell->line = readline(SHELL_PROMPT);
+		if (!shell->line)
+			cmd_exit();
+		if (*shell->line == '\0' || ft_isempty(shell->line))
+		{
+			free(shell->line);
+			return ;
+		}
+	}
+	else
+	{
+		g_exit_status = 0;
+	}
+	process_line(shell);
+	exec_pipe(shell->cmds, shell->env, shell->env_list);
+	free_shell(shell);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	t_shell	shell;
@@ -56,17 +75,7 @@ int	main(int argc, char **argv, char **env)
 		return (ERROR);
 	while (TRUE)
 	{
-		shell.line = readline(SHELL_PROMPT);
-		if (!shell.line)
-			cmd_exit();
-		if (*shell.line == '\0' || ft_isempty(shell.line))
-		{
-			free(shell.line);
-			continue ;
-		}
-		process_line(&shell);
-		exec_pipe(shell.cmds, shell.env, shell.env_list);
-		free_shell(&shell);
+		loop_helper(&shell);
 	}
 	free_strarray(shell.env);
 	free_env_list(shell.env_list);
