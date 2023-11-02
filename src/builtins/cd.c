@@ -45,10 +45,16 @@ int	shortenlines(char **env, char *oldorcurrent, int sevenorfour)
 	return (-1);
 }
 
-void	change_to_directory(char *path, char **env, int oldpwd_in)
+void	change_to_directory(char *path, char **env, \
+		int oldpwd_in, t_envs *env_list)
 {
 	if (!path || path[0] == '\0')
 	{
+		if (!is_home_set(env_list))
+		{
+			printf("HOME is not set\n");
+			return ;
+		}
 		path = getenv("HOME");
 		chdir(path);
 	}
@@ -63,7 +69,7 @@ void	change_to_directory(char *path, char **env, int oldpwd_in)
 	}
 }
 
-void	change_directory(char *path, char **env)
+void	change_directory(char *path, char **env, t_envs *env_list)
 {
 	int		pwd_in;
 	int		oldpwd_in;
@@ -76,7 +82,7 @@ void	change_directory(char *path, char **env)
 	expanded_path = NULL;
 	home = getenv("HOME");
 	expanded_path = expand_tilde_path(path, home);
-	change_to_directory(expanded_path, env, oldpwd_in);
+	change_to_directory(expanded_path, env, oldpwd_in, env_list);
 	if (oldpwd_in != -1)
 		env[oldpwd_in] = ft_strreplace(env[oldpwd_in], 7, env[pwd_in] + 4, 0);
 	getcwd(temp, sizeof(temp));
@@ -96,13 +102,8 @@ t_status	cmd_cd(char **args, char **env, t_envs *env_list)
 		printf("HOME= not found in **env\n");
 		return (ERROR);
 	}
-	if (!is_home_set(env_list))
-	{
-		printf("HOME is not set\n");
-		return (ERROR);
-	}
 	path = args[1];
-	change_directory(path, env);
+	change_directory(path, env, env_list);
 	pwd_entry = find_in_env_list(env_list, "PWD");
 	if (pwd_entry)
 		updatelistentry(pwd_entry, &env[shortenlines(env, "PWD=", 4)][4]);
