@@ -163,6 +163,7 @@ char			*get_absolute_path(char *path);
 t_envs			*find_in_env_list(t_envs *env_list, const char *key);
 void			updatelistentry(t_envs *entry, const char *new_end);
 char			*expand_tilde_path(char *path, char *home);
+int				is_home_set(t_envs *env_list);
 
 // EXECUTION
 

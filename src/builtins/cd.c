@@ -96,6 +96,11 @@ t_status	cmd_cd(char **args, char **env, t_envs *env_list)
 		printf("HOME= not found in **env\n");
 		return (ERROR);
 	}
+	if (!is_home_set(env_list))
+	{
+		printf("HOME is not set\n");
+		return (ERROR);
+	}
 	path = args[1];
 	change_directory(path, env);
 	pwd_entry = find_in_env_list(env_list, "PWD");

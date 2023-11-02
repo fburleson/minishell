@@ -59,3 +59,17 @@ char	*expand_tilde_path(char *path, char *home)
 	ft_strlcat(expanded_path, path + 1, size_needed);
 	return (expanded_path);
 }
+
+int	is_home_set(t_envs *env_list)
+{
+	t_envs	*current;
+
+	current = env_list;
+	while (current)
+	{
+		if (ft_strncmp(current->fullstr, "HOME", 4) == 0)
+			return (1);
+		current = current->next;
+	}
+	return (0);
+}
