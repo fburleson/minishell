@@ -18,7 +18,9 @@ void	signalhandler(int signum)
 	if (signum == SIGINT)
 	{
 		printf("\n");
-		rl_done = 1;
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_redisplay();
 		g_exit_status = STATUS_NEW_PROMPT;
 	}
 	else if (signum == SIGQUIT)
@@ -28,7 +30,7 @@ void	signalhandler(int signum)
 static void	init_shell(t_shell *shell, char **env)
 {
 	signal(SIGINT, &signalhandler);
-	signal(SIGQUIT, &signalhandler);
+	// signal(SIGQUIT, &signalhandler);
 	signal(SIGQUIT, SIG_IGN);
 	shell->env = copy_strarray(env);
 	shell->env_list = list_init(shell->env);

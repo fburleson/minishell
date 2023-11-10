@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+extern t_status	g_exit_status;
+
+static void	program_sighander(int signum)
+{
+	if (signum == SIGINT)
+	{
+		//free buffer && give new prompt
+		printf("\n");
+		rl_replace_line("", 0);
+		rl_done = 1;
+		g_exit_status = STATUS_NEW_PROMPT;
+	}
+}
+
 static t_bool	is_file(char *path)
 {
 	t_fstats	file_stats;
@@ -40,7 +54,11 @@ t_status	exec_program(char **args, char **env)
 	if (p_id == 0)
 		execve(exec_path, args, env);
 	else
+	{
+		signal(SIGINT, &program_sighander);
 		wait(&status);
+	}
+	signal(SIGINT, &signalhandler);
 	free(exec_path);
 	return ((t_status) status);
 }

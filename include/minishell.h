@@ -95,6 +95,8 @@ typedef struct shell
 	t_cmd	**cmds;
 }						t_shell;
 
+void	signalhandler(int signum);
+
 //	PARSE
 
 char			**parse(char *line, char **env);
