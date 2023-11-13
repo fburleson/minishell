@@ -6,9 +6,10 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/10/10 16:15:50 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/13 16:48:08 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "minishell.h"
 
 t_status	g_exit_status = 0;
@@ -30,7 +31,6 @@ void	signalhandler(int signum)
 static void	init_shell(t_shell *shell, char **env)
 {
 	signal(SIGINT, &signalhandler);
-	// signal(SIGQUIT, &signalhandler);
 	signal(SIGQUIT, SIG_IGN);
 	shell->env = copy_strarray(env);
 	shell->env_list = list_init(shell->env);

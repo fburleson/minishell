@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:35:00 by joel              #+#    #+#             */
-/*   Updated: 2023/08/15 19:19:30 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/13 16:48:49 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 extern t_status	g_exit_status;
 
-static void	program_sighander(int signum)
+static void	program_sighandler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		//free buffer && give new prompt
 		printf("\n");
 		rl_replace_line("", 0);
-		rl_done = 1;
 		g_exit_status = STATUS_NEW_PROMPT;
 	}
 }
@@ -55,7 +53,7 @@ t_status	exec_program(char **args, char **env)
 		execve(exec_path, args, env);
 	else
 	{
-		signal(SIGINT, &program_sighander);
+		signal(SIGINT, &program_sighandler);
 		wait(&status);
 	}
 	signal(SIGINT, &signalhandler);
