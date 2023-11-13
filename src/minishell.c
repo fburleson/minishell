@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/11/13 16:48:08 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/13 19:49:43 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static void	loop_helper(t_shell *shell)
 	{
 		shell->line = readline(SHELL_PROMPT);
 		if (!shell->line)
-			cmd_exit();
+			exit(ERROR);
 		if (*shell->line == '\0' || ft_isempty(shell->line))
 		{
 			free(shell->line);

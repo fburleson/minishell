@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_builtin.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/12 14:37:36 by joel          #+#    #+#                 */
-/*   Updated: 2023/09/14 17:29:37 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_builtin.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/12 14:37:36 by joel              #+#    #+#             */
+/*   Updated: 2023/11/13 19:40:09 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_status	exec_builtin(char **args, char **env, t_envs *env_list)
 {
 	if (cmpstr(args[0], CMD_EXIT))
-		return (cmd_exit());
+		return (cmd_exit(args));
 	else if (cmpstr(args[0], CMD_ENV))
 		return (cmd_env(env_list));
 	else if (cmpstr(args[0], CMD_ECHO))

@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/10/13 16:05:47 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/13 19:43:32 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define FALSE		0
 # define TRUE		1
 
+# define STATUS_TOO_MANY_ARGS	1
 # define STATUS_CMD_NOT_FOUND	127
 # define STATUS_NEW_PROMPT		130
 
@@ -137,7 +138,6 @@ void			init_redirection(t_cmd **cmds);
 void			setup_redirect_out(t_cmd *cmd);
 void			setup_redirect_in(t_cmd *cmd);
 void			reset_redirection(t_cmd *cmd);
-int				create_heredoc(t_iofile *file);
 void			write_to_heredoc(t_iofile *infile);
 
 //	BUILTINS
@@ -150,7 +150,7 @@ t_status		cmd_export(char **args, char **env, t_envs *env_list);
 t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
 t_status		cmd_unset(char **args, t_envs *env_list);
-t_status		cmd_exit(void);
+t_status		cmd_exit(char **args);
 
 // EXPORT2/CD2 BUILTINS
 
