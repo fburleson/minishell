@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 20:06:23 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 14:06:24 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 15:07:03 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ char	**cp_remove(char **array, char *element)
 		}
 		cidx++;
 	}
-	cp[cidx] = NULL;
+	cp[cp_idx] = NULL;
 	return (cp);
 }

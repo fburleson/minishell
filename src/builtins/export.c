@@ -1,119 +1,85 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   export.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: kaltevog <kaltevog@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/07/18 15:30:23 by kaltevog      #+#    #+#                 */
-/*   Updated: 2023/09/14 18:00:46 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/18 15:30:23 by kaltevog          #+#    #+#             */
+/*   Updated: 2023/11/14 16:39:22 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_node_add(char *str, t_envs **env_list)
+static char	*raw_envvar_name(char *line)
 {
-	t_envs	*current;
-	char	*env_copy;
-	char	*start;
-	char	*end;
-	char	*equal_sign;
+	char			*name;
+	unsigned int	len;
 
-	env_copy = ft_strdup(str);
-	equal_sign = ft_strchr(env_copy, '=');
-	if (!equal_sign)
-		return ;
-	*equal_sign = '\0';
-	start = env_copy;
-	end = equal_sign + 1;
-	if (!*env_list)
-		*env_list = create_node(start, end, str);
-	else
-	{
-		current = *env_list;
-		while (current->next)
-			current = current->next;
-		current->next = create_node(start, end, str);
-	}
-	free(env_copy);
+	len = lstrlen(line, "=", 0) + 1;
+	name = (char *)malloc((len + 1) * sizeof(char));
+	if (!name)
+		return (NULL);
+	ft_strlcpy(name, line, len);
+	return (name);
 }
 
-static t_envs	*create_env_list(char *env_copy, char *fullstr)
+static t_bool	is_name_unique(char *value, char **env)
 {
-	t_envs	*env_list;
-	char	*start;
-	char	*end;
-	char	*equal_sign;
+	char			*name;
+	char			*envname;
+	unsigned int	cidx;
 
-	equal_sign = ft_strchr(env_copy, '=');
-	*equal_sign = '\0';
-	start = env_copy;
-	end = equal_sign + 1;
-	env_list = create_node(start, end, fullstr);
-	return (env_list);
+	cidx = 0;
+	name = raw_envvar_name(value);
+	while (env[cidx])
+	{
+		envname = raw_envvar_name(env[cidx]);
+		if (!ft_strncmp(envname, name, ft_max(ft_strlen(envname), ft_strlen(name))))
+		{
+			free(envname);
+			free(name);
+			return (FALSE);
+		}
+		free(envname);
+		cidx++;
+	}
+	free(name);
+	return (TRUE);
 }
 
-static void	add_to_list(t_envs **head, t_envs **tail, char *str)
+t_bool	is_value_valid(char *value)
 {
-	t_envs	*env_list;
-	char	*env_copy;
+	unsigned int	cidx;
 
-	env_copy = ft_strdup(str);
-	env_list = create_env_list(env_copy, str);
-	if (*head == NULL)
-	{
-		*head = env_list;
-		*tail = *head;
-	}
-	else
-	{
-		(*tail)->next = env_list;
-		*tail = env_list;
-	}
-	free(env_copy);
+	cidx = 0;
+	while (value[cidx] && ft_isalnum(value[cidx]))
+		cidx++;
+	if (value[cidx] != '=')
+		return (FALSE);
+	return (TRUE);
 }
 
-t_envs	*list_init(char **env)
+t_status	cmd_export(char **args, char ***env)
 {
-	t_envs	*head;
-	t_envs	*tail;
-	int		i;
+	char	**append_env;
+	char	**temp_env;
 
-	head = NULL;
-	tail = NULL;
-	i = 0;
-	while (env[i])
+	if (!is_value_valid(args[1]))
+		return (ERROR);
+	if (!is_name_unique(args[1], *env))
 	{
-		add_to_list(&head, &tail, env[i]);
-		i++;
+		temp_env = cp_remove(*env, raw_envvar_name(args[1]));
+		if (!temp_env)
+			return (ERROR);
+		free_strarray(*env);
+		*env = temp_env;
 	}
-	return (head);
-}
-
-t_status	cmd_export(char **args, char **env, t_envs *env_list)
-{
-	t_envs	*current;
-	t_envs	*next;
-	char	*prefix;
-
-	if (args_null_or_empty(args, env, env_list) == 1)
-		return (0);
-	prefix = get_prefix(args[1]);
-	if (!prefix)
-	{
-		handle_node_add(args[1], &env_list);
-		return (0);
-	}
-	current = env_list;
-	while (current)
-	{
-		next = current->next;
-		if (!ft_strncmp(current->start, prefix, ft_strlen(prefix)))
-			delete_node(&env_list, prefix);
-		current = next;
-	}
-	handle_node_add(args[1], &env_list);
-	free(prefix);
-	return (0);
+	append_env = cp_append(*env, args[1]);
+	if (!append_env)
+		return (ERROR);
+	free_strarray(*env);
+	*env = append_env;
+	return (SUCCESS);
 }

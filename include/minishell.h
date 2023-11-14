@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 14:25:15 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 15:49:39 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,11 +145,11 @@ void			write_to_heredoc(t_iofile *infile);
 t_status		cmd_env(char **env);
 t_status		cmd_echo(char **args);
 t_status		cmd_pwd(char **env);
-t_status		cmd_cd(char **argv, char **env, t_envs *env_list);
-t_status		cmd_export(char **args, char **env, t_envs *env_list);
+t_status		cmd_cd(char **argv, char **env);
+t_status		cmd_export(char **args, char ***env);
 t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
-t_status		cmd_unset(char **args, t_envs *env_list);
+t_status		cmd_unset(char **args, char ***env);
 t_status		cmd_exit(char **args);
 
 // EXPORT2/CD2 BUILTINS
@@ -169,9 +169,9 @@ int				is_home_set(t_envs *env_list);
 
 // EXECUTION
 
-void			exec_pipe(t_cmd **cmds, char **env, t_envs *env_list);
+void			exec_pipe(t_cmd **cmds, char ***env);
 t_status		exec_program(char **args, char **env);
-t_status		exec_builtin(char **args, char **env, t_envs *env_list);
+t_status		exec_builtin(char **args, char ***env);
 
 // EXECUTION UTILS
 
