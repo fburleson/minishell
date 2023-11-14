@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 14:03:53 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 14:25:15 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ typedef struct shell
 	t_cmd	**cmds;
 }						t_shell;
 
-void	signalhandler(int signum);
+void			signalhandler(int signum);
 
 //	PARSE
 
@@ -142,9 +142,9 @@ void			write_to_heredoc(t_iofile *infile);
 
 //	BUILTINS
 
-t_status		cmd_env(t_envs *env_list);
+t_status		cmd_env(char **env);
 t_status		cmd_echo(char **args);
-t_status		cmd_pwd(t_envs *env_list);
+t_status		cmd_pwd(char **env);
 t_status		cmd_cd(char **argv, char **env, t_envs *env_list);
 t_status		cmd_export(char **args, char **env, t_envs *env_list);
 t_envs			*list_init(char **env);
