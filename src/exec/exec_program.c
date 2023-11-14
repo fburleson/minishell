@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:35:00 by joel              #+#    #+#             */
-/*   Updated: 2023/11/13 16:48:49 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 19:38:03 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ static t_bool	is_file(char *path)
 	return (!S_ISDIR(file_stats.st_mode));
 }
 
-t_status	exec_program(char **args, char **env)
+t_pid	exec_program(char **args, char **env)
 {
 	t_pid		p_id;
-	int			status;
 	char		*exec_path;
 
-	status = SUCCESS;
+	p_id = 0;
 	if (args[0][0] == '/')
 		exec_path = ft_strdup(args[0]);
 	else
@@ -46,17 +45,13 @@ t_status	exec_program(char **args, char **env)
 	if (!exec_path || access(exec_path, F_OK) || !is_file(exec_path))
 	{
 		free(exec_path);
-		return (STATUS_CMD_NOT_FOUND);
+		g_exit_status = STATUS_CMD_NOT_FOUND;
+		return (p_id);
 	}
 	p_id = fork();
 	if (p_id == 0)
 		execve(exec_path, args, env);
-	else
-	{
-		signal(SIGINT, &program_sighandler);
-		wait(&status);
-	}
-	signal(SIGINT, &signalhandler);
 	free(exec_path);
-	return ((t_status) status);
+	signal(SIGINT, &program_sighandler);
+	return (p_id);
 }

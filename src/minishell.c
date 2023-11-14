@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 15:45:06 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 19:26:15 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ static void	loop_helper(t_shell *shell)
 		}
 	}
 	else
-	{
 		g_exit_status = 0;
-	}
 	process_line(shell);
 	exec_pipe(shell->cmds, &(shell->env));
 	free_shell(shell);

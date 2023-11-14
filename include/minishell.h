@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 15:49:39 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 19:18:49 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,8 +169,9 @@ int				is_home_set(t_envs *env_list);
 
 // EXECUTION
 
+void			exec_cmd(t_cmd *cmd, char ***env);
 void			exec_pipe(t_cmd **cmds, char ***env);
-t_status		exec_program(char **args, char **env);
+t_pid			exec_program(char **args, char **env);
 t_status		exec_builtin(char **args, char ***env);
 
 // EXECUTION UTILS
