@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/13 19:43:32 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/14 14:03:53 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,11 +186,12 @@ unsigned int	strarraylen(char **array);
 unsigned int	parraylen(char **array);
 void			free_strarray(char **array);
 void			print_strarray(char **array);
+char			**cp_append(char **array, char *append);
+char			**cp_remove(char **array, char *element);
 char			*envvar(char *name, char **env);
 t_bool			cmpstr(char *str0, char *str1);
 char			*excludechars(char *exclude);
 void			free_shell(t_shell *shell);
 void			print_err(char *message, char *info);
 int				ft_open(char *file_name, int flags);
-int				ft_mopen(char *file_name, int flags, int permissions);
 #endif

@@ -50,6 +50,7 @@ SRCFILES		=	minishell.c			\
 					parraylen.c			\
 					free_strarray.c		\
 					print_strarray.c	\
+					cp_modify.c			\
 					envvar.c			\
 					cmpstr.c			\
 					excludechars.c		\
