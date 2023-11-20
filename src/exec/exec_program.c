@@ -18,7 +18,6 @@ static void	program_sighander(int signum)
 {
 	if (signum == SIGINT)
 	{
-		//free buffer && give new prompt
 		printf("\n");
 		rl_replace_line("", 0);
 		rl_done = 1;

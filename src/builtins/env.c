@@ -19,9 +19,20 @@ t_status	cmd_env(t_envs *env_list)
 	current = env_list;
 	while (current != NULL)
 	{
-		if (current->fullstr)
-			printf("%s\n", current->fullstr);
+		if (ft_strncmp(current->start, "PATH", ft_strlen("PATH") + 1) == 0)
+		{
+			current = env_list;
+			while (current != NULL)
+			{
+				if (current->fullstr)
+				{
+					printf("%s\n", current->fullstr);
+				}
+				current = current->next;
+			}
+			return (SUCCESS);
+		}
 		current = current->next;
 	}
-	return (SUCCESS);
+	return (127);
 }

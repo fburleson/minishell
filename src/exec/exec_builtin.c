@@ -27,7 +27,7 @@ t_status	exec_builtin(char **args, char **env, t_envs *env_list)
 	else if (cmpstr(args[0], CMD_EXPORT))
 		return (cmd_export(args, env, env_list));
 	else if (cmpstr(args[0], CMD_UNSET))
-		return (cmd_unset(args, env_list));
+		return (cmd_unset(args, env_list, env));
 	else
 		return (STATUS_CMD_NOT_FOUND);
 }

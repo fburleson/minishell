@@ -40,9 +40,49 @@ void	delete_node(t_envs **head, const char *start_to_delete)
 	}
 }
 
-t_status	cmd_unset(char **args, t_envs *env_list)
+void	remove_env_var(char ***env_array, int remove_index)
+{
+	int	shift_index;
+
+	free((*env_array)[remove_index]);
+	shift_index = remove_index;
+	while ((*env_array)[shift_index])
+	{
+		(*env_array)[shift_index] = (*env_array)[shift_index + 1];
+		shift_index++;
+	}
+}
+
+void	unset_env(char ***env_array, const char *variable_name)
+{
+	int		index;
+	char	*current_var_prefix;
+	size_t	var_length;
+
+	var_length = strlen(variable_name);
+	index = 0;
+	while ((*env_array)[index])
+	{
+		current_var_prefix = strndup((*env_array)[index], var_length);
+		if (strcmp(current_var_prefix, variable_name) == 0 && \
+			((*env_array)[index][var_length] == '=' || \
+			(*env_array)[index][var_length] == '\0'))
+		{
+			free(current_var_prefix);
+			remove_env_var(env_array, index);
+			return ;
+		}
+		free(current_var_prefix);
+		index++;
+	}
+}
+
+t_status	cmd_unset(char **args, t_envs *env_list, char **env)
 {
 	if (args[1])
+	{
 		delete_node(&env_list, args[1]);
+		unset_env(&env, args[1]);
+	}
 	return (0);
 }

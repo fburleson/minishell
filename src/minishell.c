@@ -30,7 +30,6 @@ void	signalhandler(int signum)
 static void	init_shell(t_shell *shell, char **env)
 {
 	signal(SIGINT, &signalhandler);
-	// signal(SIGQUIT, &signalhandler);
 	signal(SIGQUIT, SIG_IGN);
 	shell->env = copy_strarray(env);
 	shell->env_list = list_init(shell->env);

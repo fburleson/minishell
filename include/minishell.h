@@ -95,7 +95,7 @@ typedef struct shell
 	t_cmd	**cmds;
 }						t_shell;
 
-void	signalhandler(int signum);
+void			signalhandler(int signum);
 
 //	PARSE
 
@@ -149,7 +149,7 @@ t_status		cmd_cd(char **argv, char **env, t_envs *env_list);
 t_status		cmd_export(char **args, char **env, t_envs *env_list);
 t_envs			*list_init(char **env);
 void			free_env_list(t_envs *list);
-t_status		cmd_unset(char **args, t_envs *env_list);
+t_status		cmd_unset(char **args, t_envs *env_list, char **env);
 t_status		cmd_exit(void);
 
 // EXPORT2/CD2 BUILTINS
