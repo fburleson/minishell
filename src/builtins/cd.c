@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:26:10 by joel              #+#    #+#             */
-/*   Updated: 2023/11/22 20:26:44 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/22 21:02:07 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,14 @@ t_status	cmd_cd(char **args, char **env)
 		return (ERROR);
 	path = ft_strdup(args[1]);
 	if (cmpstr(args[1], "~"))
+	{
+		free(path);
 		path = envvar("HOME", env);
+	}
 	if (chdir(path) == -1)
 	{
+		free(path);
+		free(old_pwd);
 		print_err("No such file or directory", args[1]);
 		return (ERROR);
 	}
