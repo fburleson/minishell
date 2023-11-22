@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 19:44:20 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/22 21:20:26 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,27 @@ static t_pid	exec_pipe_node(t_cmd *cmd, char ***env)
 	return (pid);
 }
 
-static unsigned int	get_n_pids(t_cmd **cmd)
+static unsigned int	get_n_pids(t_cmd **cmds)
 {
 	unsigned int	cidx;
 
 	cidx = 0;
-	while (cmd[cidx])
+	while (cmds[cidx])
 		cidx++;
 	return (cidx);
+}
+
+static void	exec_pipe_nodes(t_cmd **cmds, t_pid *pids,
+		unsigned int n_pids, char ***env)
+{
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (cidx < n_pids)
+	{
+		pids[cidx] = exec_pipe_node(cmds[cidx], env);
+		cidx++;
+	}
 }
 
 void	exec_pipe(t_cmd **cmds, char ***env)
@@ -55,11 +68,7 @@ void	exec_pipe(t_cmd **cmds, char ***env)
 	pids = (t_pid *)malloc(n_pids * sizeof(t_pid));
 	if (!pids)
 		return ;
-	while (cidx < n_pids)
-	{
-		pids[cidx] = exec_pipe_node(cmds[cidx], env);
-		cidx++;
-	}
+	exec_pipe_nodes(cmds, pids, n_pids, env);
 	cidx = 0;
 	while (cidx < n_pids)
 	{

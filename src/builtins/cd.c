@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:26:10 by joel              #+#    #+#             */
-/*   Updated: 2023/11/22 21:02:07 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/22 21:07:24 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,10 @@ t_status	cmd_cd(char **args, char **env)
 	old_pwd = envvar("PWD", env);
 	if (!old_pwd)
 		return (ERROR);
-	path = ft_strdup(args[1]);
 	if (cmpstr(args[1], "~"))
-	{
-		free(path);
 		path = envvar("HOME", env);
-	}
+	else
+		path = ft_strdup(args[1]);
 	if (chdir(path) == -1)
 	{
 		free(path);

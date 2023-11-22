@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:30:23 by kaltevog          #+#    #+#             */
-/*   Updated: 2023/11/22 20:35:01 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/22 21:04:31 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ static t_bool	is_name_unique(char *value, char **env)
 	while (env[cidx])
 	{
 		envname = raw_envvar_name(env[cidx]);
-		if (!ft_strncmp(envname, name, ft_max(ft_strlen(envname), ft_strlen(name))))
+		if (!ft_strncmp(envname, name, ft_max(ft_strlen(envname),
+					ft_strlen(name))))
 		{
 			free(envname);
 			free(name);
