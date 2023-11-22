@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:24:46 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 14:26:54 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/22 21:02:41 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ t_status	cmd_pwd(char **env)
 
 	pwd = envvar("PWD", env);
 	if (!pwd || ft_isempty(pwd))
+	{
+		free(pwd);
 		return (ERROR);
+	}
 	printf("%s\n", pwd);
+	free(pwd);
 	return (SUCCESS);
 }
