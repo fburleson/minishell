@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:26:10 by joel              #+#    #+#             */
-/*   Updated: 2023/11/22 21:07:24 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/28 14:14:58 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_status	cmd_cd(char **args, char **env)
 	old_pwd = envvar("PWD", env);
 	if (!old_pwd)
 		return (ERROR);
-	if (cmpstr(args[1], "~"))
+	if (!args[1] || cmpstr(args[1], "~"))
 		path = envvar("HOME", env);
 	else
 		path = ft_strdup(args[1]);
