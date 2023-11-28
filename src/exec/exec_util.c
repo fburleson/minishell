@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_util.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:44:40 by joel              #+#    #+#             */
-/*   Updated: 2023/09/14 12:23:55 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/11/28 22:19:42 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,14 @@ static char	**get_env_paths(char **env)
 	path_var = envvar("PATH", env);
 	if (!path_var)
 		return (NULL);
-	env_paths = ft_split(path_var, ':');
+	if (ft_isempty(path_var))
+	{
+		env_paths = (char **)malloc(2 * sizeof(char *));
+		env_paths[0] = NULL;
+		env_paths[1] = NULL;
+	}
+	else
+		env_paths = ft_split(path_var, ':');
 	if (!env_paths)
 		return (NULL);
 	free(path_var);
@@ -68,6 +75,8 @@ char	*get_abs_path(char *path, char **env)
 	env_paths = get_env_paths(env);
 	if (!env_paths)
 		return (NULL);
+	if (!env_paths[0])
+		env_paths[0] = envvar("PWD", env);
 	current_env_path = 0;
 	while (env_paths[current_env_path])
 	{
