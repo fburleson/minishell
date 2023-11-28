@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:30:23 by kaltevog          #+#    #+#             */
-/*   Updated: 2023/11/22 21:04:31 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/28 14:23:24 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_status	cmd_export(char **args, char ***env)
 	char	**temp_env;
 	char	*raw_name;
 
+	if (!args[1])
+		return (cmd_env(*env));
 	if (!is_value_valid(args[1]))
 		return (ERROR);
 	if (!is_name_unique(args[1], *env))
