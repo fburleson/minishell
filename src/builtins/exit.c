@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 16:20:25 by joel              #+#    #+#             */
-/*   Updated: 2023/11/13 19:53:42 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/28 21:11:10 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 t_status	cmd_exit(char **args)
 {
 	printf("exit\n");
+	if (!args)
+		exit(SUCCESS);
 	if (strarraylen(args) > 2)
 	{
 		print_err("too many arguments", "");

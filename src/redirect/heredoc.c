@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 19:27:14 by joel              #+#    #+#             */
-/*   Updated: 2023/10/13 20:43:31 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/28 21:18:58 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ static char	*readline_limit(char *limit_str)
 	{
 		free(raw_current_line);
 		raw_current_line = readline("> ");
+		if (!raw_current_line)
+			return (line);
 		current_line = ft_strjoin(raw_current_line, "\n");
 		tmp_line = ft_strjoin(line, current_line);
 		free(current_line);
