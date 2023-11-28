@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 15:30:25 by kaltevog          #+#    #+#             */
-/*   Updated: 2023/11/22 20:59:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/28 14:17:31 by fsarkoh          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ t_status	cmd_unset(char **args, char ***env)
 {
 	char	**rm_env;
 
+	if (!args[1])
+	{
+		print_err("not enough arguments:", "");
+		return (ERROR);
+	}
 	if (!contains_var(args[1], *env))
 		return (ERROR);
 	rm_env = cp_remove(*env, args[1]);
