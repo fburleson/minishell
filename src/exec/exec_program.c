@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:35:00 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 19:38:03 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/29 20:40:41 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ static t_bool	is_file(char *path)
 	return (!S_ISDIR(file_stats.st_mode));
 }
 
+static char	*expand_period(char **args, char **env)
+{
+	char	*expanded_path;
+	char	*current_dir;
+	char	*program_name;
+
+	current_dir = envvar("PWD", env);
+	program_name = ft_strdup(args[0] + 1);
+	expanded_path = ft_strjoin(current_dir, program_name);
+	free(current_dir);
+	free(program_name);
+	return (expanded_path);
+}
+
 t_pid	exec_program(char **args, char **env)
 {
 	t_pid		p_id;
@@ -40,6 +54,8 @@ t_pid	exec_program(char **args, char **env)
 	p_id = 0;
 	if (args[0][0] == '/')
 		exec_path = ft_strdup(args[0]);
+	else if (args[0][0] == '.')
+		exec_path = expand_period(args, env);
 	else
 		exec_path = get_abs_path(args[0], env);
 	if (!exec_path || access(exec_path, F_OK) || !is_file(exec_path))
