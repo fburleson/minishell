@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/11/22 21:20:26 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/29 21:15:56 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	exec_pipe(t_cmd **cmds, char ***env)
 	int				status;
 
 	cidx = 0;
+	status = g_exit_status;
 	n_pids = get_n_pids(cmds);
 	pids = (t_pid *)malloc(n_pids * sizeof(t_pid));
 	if (!pids)
