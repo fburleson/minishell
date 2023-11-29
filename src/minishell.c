@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/11/28 21:11:30 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/29 22:00:19 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,22 @@ void	signalhandler(int signum)
 
 static void	init_shell(t_shell *shell, char **env)
 {
+	char	**temp_env;
+	char	*prev_shlvl;
+	char	*shlvl;
+	char	*shlvl_value;
+
 	signal(SIGINT, &signalhandler);
 	signal(SIGQUIT, SIG_IGN);
-	shell->env = copy_strarray(env);
+	prev_shlvl = envvar("SHLVL", env);
+	temp_env = cp_remove(env, "SHLVL");
+	shlvl_value = ft_itoa(ft_atoi(prev_shlvl) + 1);
+	shlvl = ft_strjoin("SHLVL=", shlvl_value);
+	shell->env = cp_append(temp_env, shlvl);
+	free(shlvl);
+	free(prev_shlvl);
+	free(shlvl_value);
+	free_strarray(temp_env);
 }
 
 static void	process_line(t_shell *shell)
