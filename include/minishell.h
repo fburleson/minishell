@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/14 19:18:49 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/30 17:29:52 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ t_iofile		*init_iofile(char **args);
 //	REDIRECTION UTILS
 
 void			free_iofile(t_iofile *iofile);
+void			free_iofilearr(t_iofile **iofiles);
 t_iofile		*copy_iofile(t_iofile *iofile);
 char			*iofile_name(unsigned int idx);
 

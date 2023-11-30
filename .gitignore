@@ -3,3 +3,4 @@ bin/
 lib/
 minishell
 .minishell_heredoc
+todo

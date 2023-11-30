@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsarkoh <fsarkoh@student.42.fr>            +#+  +:+       +#+        */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:13:37 by joel              #+#    #+#             */
-/*   Updated: 2023/09/14 11:54:16 by fsarkoh          ###   ########.fr       */
+/*   Updated: 2023/11/30 17:28:33 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,19 @@ void	free_iofile(t_iofile *iofile)
 	free(iofile->path);
 	free(iofile->limit_str);
 	free(iofile);
+}
+
+void	free_iofilearr(t_iofile **iofiles)
+{
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (iofiles[cidx])
+	{
+		free_iofile(iofiles[cidx]);
+		cidx++;
+	}
+	free(iofiles);
 }
 
 t_iofile	*copy_iofile(t_iofile *iofile)

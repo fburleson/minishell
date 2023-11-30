@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/11/29 22:00:19 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/30 17:00:12 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,12 @@ void	signalhandler(int signum)
 {
 	if (signum == SIGINT)
 	{
-		printf("\n");
+		write(STDOUT_FILENO, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
 		g_exit_status = STATUS_NEW_PROMPT;
 	}
-	else if (signum == SIGQUIT)
-		exit(SUCCESS);
 }
 
 static void	init_shell(t_shell *shell, char **env)

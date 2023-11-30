@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/09/16 20:39:57 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/30 17:40:01 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,15 @@ static t_iofile	*init_outfile(unsigned int idx)
 static t_iofile	**create_pipefile(unsigned int idx)
 {
 	t_iofile	**pipefile;
+	int			fd;
 
 	pipefile = (t_iofile **)malloc(2 * sizeof(t_iofile));
 	if (!pipefile)
 		return (NULL);
 	pipefile[0] = init_outfile(idx);
 	pipefile[1] = NULL;
+	fd = ft_open(pipefile[0]->path, O_TRUNC);
+	close(fd);
 	return (pipefile);
 }
 
@@ -64,10 +67,38 @@ static void	init_pipe(t_cmd **cmds)
 	}
 }
 
+static void	init_explicit_redirections(t_cmd **cmds)
+{
+	t_iofile		*infile;
+	t_iofile		**outfiles;
+	unsigned int	cidx;
+
+	cidx = 0;
+	while (cmds[cidx])
+	{
+		infile = init_infile(cmds[cidx]->raw_args);
+		outfiles = init_outfiles(cmds[cidx]->raw_args);
+		if (infile)
+		{
+			free_iofile(cmds[cidx]->infile);
+			cmds[cidx]->infile = infile;
+		}
+		if (outfiles[0])
+		{
+			free_iofilearr(cmds[cidx]->outfiles);
+			cmds[cidx]->outfiles = outfiles;
+		}
+		else
+			free_iofilearr(outfiles);
+		cidx++;
+	}
+}
+
 void	init_redirection(t_cmd **cmds)
 {
 	if (parraylen((void *)cmds) == 1)
 		init_single(cmds[0]);
 	else
 		init_pipe(cmds);
+	init_explicit_redirections(cmds);
 }
