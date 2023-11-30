@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/11/30 17:29:52 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/30 18:16:44 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ typedef DIR				t_dir;
 typedef struct stat		t_fstats;
 typedef struct dirent	t_dirent;
 typedef unsigned int	t_bool;
-typedef unsigned int	t_status;
+typedef int				t_status;
 typedef pid_t			t_pid;
 typedef unsigned int	t_iomode;
 

@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 17:19:31 by joel              #+#    #+#             */
-/*   Updated: 2023/11/29 21:15:56 by joel             ###   ########.fr       */
+/*   Updated: 2023/11/30 18:20:36 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,8 @@ void	exec_pipe(t_cmd **cmds, char ***env)
 	t_pid			*pids;
 	unsigned int	n_pids;
 	unsigned int	cidx;
-	int				status;
 
 	cidx = 0;
-	status = g_exit_status;
 	n_pids = get_n_pids(cmds);
 	pids = (t_pid *)malloc(n_pids * sizeof(t_pid));
 	if (!pids)
@@ -78,10 +76,10 @@ void	exec_pipe(t_cmd **cmds, char ***env)
 			cidx++;
 			continue ;
 		}
-		waitpid(pids[cidx], &status, 0);
+		waitpid(pids[cidx], &g_exit_status, 0);
+		g_exit_status = g_exit_status % 255;
 		cidx++;
 	}
 	signal(SIGINT, &signalhandler);
 	free(pids);
-	g_exit_status = (t_status)status;
 }
