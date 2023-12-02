@@ -18,8 +18,8 @@ LIBDIR			=	./lib/
 SRCFILES		=	minishell.c			\
 					parse.c				\
 					parse_arg.c			\
-					expand.c			\
-					parse_util.c		\
+					offset_next_arg.c	\
+					arglen.c			\
 					init_args.c			\
 					init_cmd.c			\
 					init_cmds.c			\

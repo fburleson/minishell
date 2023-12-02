@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:52:42 by joel              #+#    #+#             */
-/*   Updated: 2023/11/30 17:00:12 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/02 17:51:11 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	init_shell(t_shell *shell, char **env)
 static void	process_line(t_shell *shell)
 {
 	add_history(shell->line);
-	shell->args = parse(shell->line, shell->env);
+	shell->args = parse(shell->line);
 	shell->cmds = init_cmds(shell->args);
 	init_redirection(shell->cmds);
 }

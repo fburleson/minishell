@@ -5,73 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 16:09:07 by joel              #+#    #+#             */
-/*   Updated: 2023/09/16 21:25:34 by joel             ###   ########.fr       */
+/*   Created: 2023/12/02 12:37:47 by joel              #+#    #+#             */
+/*   Updated: 2023/12/02 17:50:29 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static unsigned int	offset_next_arg(char *line, char *delimiters)
-{
-	char	end;
-
-	if (ft_strnchr("\'\"", *line))
-	{
-		end = *((line + 1) + lstrlen(line + 1, delimiters, 0));
-		if (ft_strnchr("\'\"", end))
-			return (lstrlen(line, delimiters, 1) + 1);
-		return (lstrlen(line, delimiters, 1));
-	}
-	else
-		return (lstrlen(line, delimiters, 0));
-}
-
 static unsigned int	n_args(char *line)
 {
 	unsigned int	n;
 	unsigned int	cidx;
-	char			*delimiters;
 
 	n = 0;
 	cidx = 0;
 	while (line[cidx])
 	{
-		while (line[cidx] == ' ')
-			cidx++;
-		if (line[cidx])
-			n++;
-		delimiters = get_delimiters(line[cidx]);
-		cidx += offset_next_arg(line + cidx, delimiters);
-		free(delimiters);
+		cidx += offset_next_arg(line + cidx);
+		n++;
 	}
 	return (n);
 }
 
-char	**parse(char *line, char **env)
+char	**parse(char *line)
 {
 	char			**parsed;
+	unsigned int	carg;
 	unsigned int	cidx;
-	unsigned int	current_arg;
-	char			*delimiters;
 
 	parsed = (char **)malloc((n_args(line) + 1) * sizeof(char *));
 	if (!parsed)
 		return (NULL);
 	cidx = 0;
-	current_arg = 0;
-	while (line[cidx] == ' ')
+	while (ft_isspace(line[cidx]))
 		cidx++;
+	carg = 0;
 	while (line[cidx])
 	{
-		delimiters = get_delimiters(line[cidx]);
-		parsed[current_arg] = parse_arg(line + cidx, delimiters, env);
-		cidx += offset_next_arg(line + cidx, delimiters);
-		current_arg++;
-		while (line[cidx] == ' ')
-			cidx++;
-		free(delimiters);
+		parsed[carg] = parse_arg(line + cidx);
+		carg++;
+		cidx += offset_next_arg(line + cidx);
 	}
-	parsed[current_arg] = NULL;
+	parsed[carg] = NULL;
+	print_strarray(parsed);
 	return (parsed);
 }

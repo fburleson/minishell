@@ -5,35 +5,37 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 10:20:49 by joel              #+#    #+#             */
-/*   Updated: 2023/08/10 11:34:44 by joel             ###   ########.fr       */
+/*   Created: 2023/12/02 13:06:41 by joel              #+#    #+#             */
+/*   Updated: 2023/12/02 17:51:59 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*copy_arg(char *line, char *delimiters)
+char	*parse_arg(char *start_arg)
 {
-	char			*copy;
+	char			*arg;
+	unsigned int	carg;
+	unsigned int	len;
 	unsigned int	cidx;
 
-	cidx = 1;
-	copy = (char *)malloc((lstrlen(line + cidx, delimiters, 0) + 1)
-			* sizeof(char));
-	if (!copy)
+	len = arglen(start_arg);
+	arg = (char *)malloc((len + 1) * sizeof(char));
+	if (!arg)
 		return (NULL);
-	while (line[cidx] && !ft_strnchr(delimiters, line[cidx]))
+	cidx = 0;
+	carg = 0;
+	while (start_arg[cidx] && carg < len)
 	{
-		copy[cidx - 1] = line[cidx];
+		if (ft_strrchr("\'\"", start_arg[cidx]))
+		{
+			cidx++;
+			continue ;
+		}
+		arg[carg] = start_arg[cidx];
+		carg++;
 		cidx++;
 	}
-	copy[cidx - 1] = '\0';
-	return (copy);
-}
-
-char	*parse_arg(char *line, char *delimiters, char **env)
-{
-	if (*line == '\'')
-		return (copy_arg(line, delimiters));
-	return (expand_copy_arg(line, delimiters, env));
+	arg[carg] = '\0';
+	return (arg);
 }
