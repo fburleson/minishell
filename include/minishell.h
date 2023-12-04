@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/12/02 17:50:33 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/04 13:04:15 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,15 +100,14 @@ void			signalhandler(int signum);
 
 //	PARSE
 
-char			**parse(char *line);
-char			*parse_arg(char *start_arg);
+char			**parse(char *line, char **env);
+char			*parse_arg(char *start_arg, char **env);
 unsigned int	offset_next_arg(char *start_arg);
-unsigned int	arglen(char *start_arg);
+unsigned int	arglen(char *start_arg, char **env);
 
 //	PARSE UTILS
 
-char			*get_delimiters(char c);
-char			*envvar_name(char *line);
+char			*envvar_name(char *start_var);
 
 //	INIT CMD
 

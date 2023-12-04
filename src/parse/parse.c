@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 12:37:47 by joel              #+#    #+#             */
-/*   Updated: 2023/12/02 17:50:29 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/04 17:56:29 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static unsigned int	n_args(char *line)
 	return (n);
 }
 
-char	**parse(char *line)
+char	**parse(char *line, char **env)
 {
 	char			**parsed;
-	unsigned int	carg;
+	unsigned int	aidx;
 	unsigned int	cidx;
 
 	parsed = (char **)malloc((n_args(line) + 1) * sizeof(char *));
@@ -39,14 +39,13 @@ char	**parse(char *line)
 	cidx = 0;
 	while (ft_isspace(line[cidx]))
 		cidx++;
-	carg = 0;
+	aidx = 0;
 	while (line[cidx])
 	{
-		parsed[carg] = parse_arg(line + cidx);
-		carg++;
+		parsed[aidx] = parse_arg(line + cidx, env);
+		aidx++;
 		cidx += offset_next_arg(line + cidx);
 	}
-	parsed[carg] = NULL;
-	print_strarray(parsed);
+	parsed[aidx] = NULL;
 	return (parsed);
 }

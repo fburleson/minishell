@@ -20,6 +20,7 @@ SRCFILES		=	minishell.c			\
 					parse_arg.c			\
 					offset_next_arg.c	\
 					arglen.c			\
+					parse_util.c		\
 					init_args.c			\
 					init_cmd.c			\
 					init_cmds.c			\

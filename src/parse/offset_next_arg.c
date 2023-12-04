@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:07:37 by joel              #+#    #+#             */
-/*   Updated: 2023/12/02 16:19:06 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/04 12:54:29 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,24 +22,12 @@ static unsigned int	offset_pipe(char *start_arg)
 	return (cidx);
 }
 
-static unsigned int	offset_out(char *start_arg)
+static unsigned int	offset_io(char *start_arg, char c)
 {
 	unsigned int	cidx;
 
 	cidx = 1;
-	if (start_arg[cidx] == '>')
-		cidx++;
-	while (ft_isspace(start_arg[cidx]))
-		cidx++;
-	return (cidx);
-}
-
-static unsigned int	offset_in(char *start_arg)
-{
-	unsigned int	cidx;
-
-	cidx = 1;
-	if (start_arg[cidx] == '<')
+	if (start_arg[cidx] == c)
 		cidx++;
 	while (ft_isspace(start_arg[cidx]))
 		cidx++;
@@ -54,9 +42,9 @@ unsigned int	offset_next_arg(char *start_arg)
 	if (start_arg[cidx] == '|')
 		return (offset_pipe(start_arg));
 	else if (start_arg[cidx] == '>')
-		return (offset_out(start_arg));
+		return (offset_io(start_arg, start_arg[cidx]));
 	else if (start_arg[cidx] == '<')
-		return (offset_in(start_arg));
+		return (offset_io(start_arg, start_arg[cidx]));
 	while (start_arg[cidx] && !ft_isspace(start_arg[cidx]))
 	{
 		if (start_arg[cidx] == '\'')
