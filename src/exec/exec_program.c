@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   exec_program.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/10 21:35:00 by joel              #+#    #+#             */
-/*   Updated: 2023/11/29 20:40:41 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   exec_program.c                                     :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/10 21:35:00 by joel          #+#    #+#                 */
+/*   Updated: 2023/12/05 14:16:25 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,10 @@ static t_bool	is_file(char *path)
 	return (!S_ISDIR(file_stats.st_mode));
 }
 
-static char	*expand_period(char **args, char **env)
+static	void	shorten(char **args, char **env, char *exec_path)
 {
-	char	*expanded_path;
-	char	*current_dir;
-	char	*program_name;
-
-	current_dir = envvar("PWD", env);
-	program_name = ft_strdup(args[0] + 1);
-	expanded_path = ft_strjoin(current_dir, program_name);
-	free(current_dir);
-	free(program_name);
-	return (expanded_path);
+	signal(SIGQUIT, SIG_DFL);
+	execve(exec_path, args, env);
 }
 
 t_pid	exec_program(char **args, char **env)
@@ -66,7 +58,7 @@ t_pid	exec_program(char **args, char **env)
 	}
 	p_id = fork();
 	if (p_id == 0)
-		execve(exec_path, args, env);
+		shorten(args, env, exec_path);
 	free(exec_path);
 	signal(SIGINT, &program_sighandler);
 	return (p_id);

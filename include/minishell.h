@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/09 15:50:19 by joel              #+#    #+#             */
-/*   Updated: 2023/12/04 13:04:15 by joel             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minishell.h                                        :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: joel <joel@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/08/09 15:50:19 by joel          #+#    #+#                 */
+/*   Updated: 2023/12/05 14:15:46 by kaltevog      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ void			exec_cmd(t_cmd *cmd, char ***env);
 void			exec_pipe(t_cmd **cmds, char ***env);
 t_pid			exec_program(char **args, char **env);
 t_status		exec_builtin(char **args, char ***env);
+char			*expand_period(char **args, char **env);
 
 // EXECUTION UTILS
 
