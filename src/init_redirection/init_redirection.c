@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/11/30 17:40:01 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 13:49:52 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_iofile	**create_pipefile(unsigned int idx)
 		return (NULL);
 	pipefile[0] = init_outfile(idx);
 	pipefile[1] = NULL;
-	fd = ft_open(pipefile[0]->path, O_TRUNC);
+	fd = ft_open(pipefile[0]->path, O_TRUNC | O_CREAT);
 	close(fd);
 	return (pipefile);
 }
