@@ -6,17 +6,17 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 18:08:10 by fsarkoh           #+#    #+#             */
-/*   Updated: 2023/12/08 13:49:52 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:25:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	init_single(t_cmd *cmd)
-{
-	cmd->outfiles = init_outfiles(cmd->raw_args);
-	cmd->infile = init_infile(cmd->raw_args);
-}
+// static void	init_single(t_cmd *cmd)
+// {
+// 	cmd->outfiles = init_outfiles(cmd->raw_args);
+// 	cmd->infile = init_infile(cmd->raw_args);
+// }
 
 static t_iofile	*init_outfile(unsigned int idx)
 {
@@ -97,7 +97,10 @@ static void	init_explicit_redirections(t_cmd **cmds)
 void	init_redirection(t_cmd **cmds)
 {
 	if (parraylen((void *)cmds) == 1)
-		init_single(cmds[0]);
+	{
+		cmds[0]->outfiles = init_outfiles(cmds[0]->raw_args);
+		cmds[0]->infile = init_infile(cmds[0]->raw_args);
+	}
 	else
 		init_pipe(cmds);
 	init_explicit_redirections(cmds);

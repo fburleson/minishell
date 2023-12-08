@@ -18,6 +18,7 @@ LIBDIR			=	./lib/
 SRCFILES		=	minishell.c			\
 					parse.c				\
 					parse_arg.c			\
+					insert_arg.c		\
 					offset_next_arg.c	\
 					arglen.c			\
 					parse_util.c		\
@@ -54,6 +55,7 @@ SRCFILES		=	minishell.c			\
 					cmpstr.c			\
 					excludechars.c		\
 					free_shell.c		\
+					is_builtin.c		\
 					print_err.c			\
 					ft_open.c			\
 					exec_relative.c		\

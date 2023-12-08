@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   exec_program.c                                     :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: joel <joel@student.42.fr>                    +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/08/10 21:35:00 by joel          #+#    #+#                 */
-/*   Updated: 2023/12/05 14:16:25 by kaltevog      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   exec_program.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/10 21:35:00 by joel              #+#    #+#             */
+/*   Updated: 2023/12/08 14:06:00 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_pid	exec_program(char **args, char **env)
 	if (args[0][0] == '/')
 		exec_path = ft_strdup(args[0]);
 	else if (args[0][0] == '.')
-		exec_path = expand_period(args, env);
+		exec_path = expand_period(args);
 	else
 		exec_path = get_abs_path(args[0], env);
 	if (!exec_path || access(exec_path, F_OK) || !is_file(exec_path))

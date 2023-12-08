@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/10 21:44:40 by joel              #+#    #+#             */
-/*   Updated: 2023/11/28 22:19:42 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 15:12:56 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,21 @@ static t_bool	dir_has_file(t_dir	*dir, char *file_name)
 	return (FALSE);
 }
 
+static char	*return_abs_path(char *path, char **env_paths,
+		unsigned int env_path_idx)
+{
+	char	*abs_path;
+
+	abs_path = join_paths(env_paths[env_path_idx], path);
+	free_strarray(env_paths);
+	return (abs_path);
+}
+
 char	*get_abs_path(char *path, char **env)
 {
 	char			**env_paths;
 	t_dir			*current_dir;
 	unsigned int	current_env_path;
-	char			*abs_path;
 
 	env_paths = get_env_paths(env);
 	if (!env_paths)
@@ -84,9 +93,7 @@ char	*get_abs_path(char *path, char **env)
 		if (dir_has_file(current_dir, path) && current_dir)
 		{
 			closedir(current_dir);
-			abs_path = join_paths(env_paths[current_env_path], path);
-			free_strarray(env_paths);
-			return (abs_path);
+			return (return_abs_path(path, env_paths, current_env_path));
 		}
 		if (current_dir)
 			closedir(current_dir);
@@ -94,23 +101,4 @@ char	*get_abs_path(char *path, char **env)
 	}
 	free_strarray(env_paths);
 	return (NULL);
-}
-
-t_bool	is_builtin(char *cmd)
-{
-	if (cmpstr(cmd, "exit"))
-		return (TRUE);
-	if (cmpstr(cmd, "pwd"))
-		return (TRUE);
-	if (cmpstr(cmd, "cd"))
-		return (TRUE);
-	if (cmpstr(cmd, "env"))
-		return (TRUE);
-	if (cmpstr(cmd, "export"))
-		return (TRUE);
-	if (cmpstr(cmd, "unset"))
-		return (TRUE);
-	if (cmpstr(cmd, "echo"))
-		return (TRUE);
-	return (FALSE);
 }

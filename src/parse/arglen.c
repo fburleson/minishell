@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:15:35 by joel              #+#    #+#             */
-/*   Updated: 2023/12/04 17:54:05 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:38:58 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,29 +66,28 @@ static unsigned int	get_len_phrase(char *start_phrase, char **env)
 	return (0);
 }
 
-unsigned int	arglen(char *start_arg, char **env)
+unsigned int	arglen(char *sa, char **env)
 {
 	unsigned int	len;
 	unsigned int	cidx;
 
 	cidx = 0;
 	len = 0;
-	if (start_arg[cidx] == '|')
+	if (sa[cidx] == '|')
 		return (1);
-	else if (start_arg[cidx] == '>')
-		return (arglen_io(start_arg, start_arg[cidx]));
-	else if (start_arg[cidx] == '<')
-		return (arglen_io(start_arg, start_arg[cidx]));
-	while (start_arg[cidx] && !ft_isspace(start_arg[cidx])
-		&& !ft_strrchr("|<>", start_arg[cidx]))
+	else if (sa[cidx] == '>')
+		return (arglen_io(sa, sa[cidx]));
+	else if (sa[cidx] == '<')
+		return (arglen_io(sa, sa[cidx]));
+	while (!ft_isspace(sa[cidx]) && !ft_strrchr("|<>\0", sa[cidx]))
 	{
-		len += get_len_phrase(start_arg + cidx, env);
-		if (start_arg[cidx] == '\'')
-			cidx += lstrlen(start_arg + cidx, "\'", 1);
-		else if (start_arg[cidx] == '\"')
-			cidx += lstrlen(start_arg + cidx, "\"", 1);
-		else if (start_arg[cidx] == '$')
-			cidx += lstrlen(start_arg + cidx, " $|<>\'\"", 1) - 1;
+		len += get_len_phrase(sa + cidx, env);
+		if (sa[cidx] == '\'')
+			cidx += lstrlen(sa + cidx, "\'", 1);
+		else if (sa[cidx] == '\"')
+			cidx += lstrlen(sa + cidx, "\"", 1);
+		else if (sa[cidx] == '$')
+			cidx += lstrlen(sa + cidx, " $|<>\'\"", 1) - 1;
 		else
 			len++;
 		cidx++;

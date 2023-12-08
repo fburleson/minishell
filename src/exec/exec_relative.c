@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 14:12:11 by kaltevog          #+#    #+#             */
-/*   Updated: 2023/12/08 13:48:42 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:05:46 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*resolve_path(const char *relative_path, const char *current_dir)
 	return (resolved_path);
 }
 
-char	*expand_period(char **args, char **env)
+char	*expand_period(char **args)
 {
 	char	*current_dir;
 	char	*expanded_path;

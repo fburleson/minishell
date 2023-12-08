@@ -6,7 +6,7 @@
 /*   By: joel <joel@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 19:26:10 by joel              #+#    #+#             */
-/*   Updated: 2023/11/29 20:44:11 by joel             ###   ########.fr       */
+/*   Updated: 2023/12/08 14:10:21 by joel             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ static void	mod_var(char *name, char *value, char **env)
 	}
 }
 
+static void	mod_pwd_vars(char *pwd, char *old_pwd, char **env)
+{
+	mod_var("OLDPWD", old_pwd, env);
+	mod_var("PWD", pwd, env);
+	free(pwd);
+	free(old_pwd);
+}
+
 t_status	cmd_cd(char **args, char **env)
 {
 	char	*path;
@@ -71,10 +79,7 @@ t_status	cmd_cd(char **args, char **env)
 		return (ERROR);
 	}
 	pwd = getcwd(NULL, 0);
-	mod_var("OLDPWD", old_pwd, env);
-	free(old_pwd);
-	mod_var("PWD", pwd, env);
-	free(pwd);
+	mod_pwd_vars(pwd, old_pwd, env);
 	free(path);
 	return (SUCCESS);
 }
